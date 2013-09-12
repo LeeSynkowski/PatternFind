@@ -82,24 +82,14 @@ public class GameActivity extends Activity implements SensorEventListener{
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		float azimuth_angle = event.values[0];
 		float pitch_angle = event.values[1];
 		float roll_angle = event.values[2];
 		//azimuthTextViewDisplay.setText(Float.toString(azimuth_angle));
 		//pitchTextViewDisplay.setText(Float.toString(pitch_angle));
 		//rollTextViewDisplay.setText(Float.toString(roll_angle));
-		drawingView.setAngles(azimuth_angle, pitch_angle, roll_angle);
+		drawingView.setAngles(pitch_angle, roll_angle);
 		//infoText.setText(drawingPanel.showDelay()+Float.toString(azimuth_angle));
 	}
 	
-	/* trying a simple listener on the view
-	SimpleOnGestureListener gestureListener = new SimpleOnGestureListener(){
-		
-		@Override
-		public boolean onDown(MotionEvent e){
-			drawingView.handleTap(e);
-			return true;
-		}
-	};
-	*/
+
 }

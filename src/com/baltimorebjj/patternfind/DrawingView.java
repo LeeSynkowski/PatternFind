@@ -38,8 +38,6 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	private float playAreaBottom;
 	private float playAreaRight;
 	
-	private float azimuth_angle;
-	
 	private TurnEvent turnEvent;
 	private TurnEvent previousTurnEvent;
 	
@@ -385,17 +383,11 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		}
 	}
 	
-	public void setAngles(float azimuth,float pitch,float roll){
-		azimuth_angle = azimuth;
+	public void setAngles(float pitch,float roll){
 		pitch_angle = pitch;
 		roll_angle = roll;
 	}
 	
-	/*
-	public void handleTap(MotionEvent e){
-		theGameBoard.handleTouch(e.getX(),e.getY());
-	}
-	*/
 	
 	@Override
 	  public boolean onTouchEvent(MotionEvent event) {
