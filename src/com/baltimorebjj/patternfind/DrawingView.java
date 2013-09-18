@@ -48,6 +48,19 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	
 	private Random rng = new Random();
 	
+	//Measure frames per second.
+    private long now;
+    private int framesCount=0;
+    private int framesCountAvg=0;
+    private long framesTimer=0;
+    //Paint fpsPaint=new Paint();
+
+    //Frame speed
+    private long timeNow;
+    private long timePrev = 0;
+    private long timePrevFrame = 0;
+    private long timeDelta;
+	
 	//private Pattern thePattern;
 	
 	public DrawingView(Context context, AttributeSet attrs) {
@@ -116,6 +129,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		//can only read turn events if inactive
 		//additional protection checking status of last turn event so we don't try to process twice
 		if (turnEvent == TurnEvent.INACTIVE){
+			/*
 			if ((pitch_angle < -40)&&(previousTurnEvent!=TurnEvent.LOW_PITCH)){
 				turnEvent = TurnEvent.LOW_PITCH;
 				
@@ -127,44 +141,77 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 				
 			}else if ((roll_angle < -40)&&(previousTurnEvent!=TurnEvent.LOW_ROLL)){
 				turnEvent = TurnEvent.LOW_ROLL;
-			}			
+			}
+			*/
+			if ((pitch_angle < -40)){
+				turnEvent = TurnEvent.LOW_PITCH;
+				
+			}else if ((pitch_angle > 40)){
+				turnEvent = TurnEvent.HIGH_PITCH;
+				
+			}else if ((roll_angle > 40)){
+				turnEvent = TurnEvent.HIGH_ROLL;
+				
+			}else if ((roll_angle < -40)){
+				turnEvent = TurnEvent.LOW_ROLL;
+			}	
 		}
 		
 		switch (turnEvent){
 			case LOW_PITCH:
+				theGameBoard.handleLowPitch();
+				turnEvent = TurnEvent.INACTIVE;
+				previousTurnEvent = TurnEvent.LOW_PITCH;
+				/*
 				if (theGameBoard.handleLowPitch()){
 
 				} else{
 					turnEvent = TurnEvent.INACTIVE;
 					previousTurnEvent = TurnEvent.LOW_PITCH;
 				}
+				*/
 				break;
 			
 			case HIGH_PITCH:
+				theGameBoard.handleHighPitch();
+				turnEvent = TurnEvent.INACTIVE;
+				previousTurnEvent = TurnEvent.HIGH_PITCH;
+				/*
 				if (theGameBoard.handleHighPitch()){
 
 				} else{
 					turnEvent = TurnEvent.INACTIVE;
 					previousTurnEvent = TurnEvent.HIGH_PITCH;
 				}
+				*/
 				break;
 
 			case LOW_ROLL:
+				theGameBoard.handleLowRoll();
+				turnEvent = TurnEvent.INACTIVE;
+				previousTurnEvent = TurnEvent.LOW_ROLL;
+				/*
 				if (theGameBoard.handleLowRoll()){
 
 				} else{
 					turnEvent = TurnEvent.INACTIVE;
 					previousTurnEvent = TurnEvent.LOW_ROLL;
 				}
+				*/
 				break;
 				
 			case HIGH_ROLL:
+				theGameBoard.handleHighRoll();
+				turnEvent = TurnEvent.INACTIVE;
+				previousTurnEvent = TurnEvent.HIGH_ROLL;
+				/*
 				if (theGameBoard.handleHighRoll()){
 
 				} else{
 					turnEvent = TurnEvent.INACTIVE;
 					previousTurnEvent = TurnEvent.HIGH_ROLL;
 				}
+				*/
 				break;
 			case INACTIVE:
 				//do nothing
@@ -297,7 +344,17 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		canvas.drawText(removeButton.getTextString(), removeButton.getTextLeft(),removeButton.getTextTop(),removeButton.getTextPaint());
 		
-		
+		//measure frame rate
+		now=System.currentTimeMillis();
+		outlinePaint.setStrokeWidth(1);
+		outlinePaint.setTextSize(20);
+        canvas.drawText(framesCountAvg+" fps", 40, 70, outlinePaint);
+        framesCount++;
+        if(now-framesTimer>1000) {
+                framesTimer=now;
+                framesCountAvg=framesCount;
+                framesCount=0;
+        }
 	}
 	
 	public void stopGame(){
@@ -367,14 +424,32 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 			Canvas canvas = null;
 			
 			while (threadIsRunning){
+				
+				//limit frame rate
+                timeNow = System.currentTimeMillis();
+                timeDelta = timeNow - timePrevFrame;
+                if ( timeDelta < 160) {
+                    try {
+                        Thread.sleep(160 - timeDelta);
+                    }
+                    catch(InterruptedException e) {
+
+                    }
+                }
+                timePrevFrame = System.currentTimeMillis();
+				
+				
 				try{
 					canvas = surfaceHolder.lockCanvas(null);
 					
+					
+					updatePositions();
 					//lock the surface for drawing
 					synchronized(surfaceHolder){
-						updatePositions();
 						drawGameElements(canvas);
+						
 					}
+					
 				}finally{
 					if (canvas != null)
 						surfaceHolder.unlockCanvasAndPost(canvas);

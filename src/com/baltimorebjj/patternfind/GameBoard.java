@@ -36,6 +36,9 @@ public class GameBoard {
 	private float[] pointArray;
 	
 	private TurnEvent lastTurnEvent;
+	
+	private static final int Animation_Wait_Time = 500;
+
 		
 	public GameBoard(int width,int height,float screenW, float screenH){
 		if ((width<100) && (height <100)){
@@ -81,10 +84,13 @@ public class GameBoard {
 	
 	//these methods are called when the screen rotates, and also after pieces
 	//are cleared to drop pieces down to the correct side
-	public boolean handleLowPitch(){
+	public void handleLowPitch(){
 		
 		clearTileSequence();
+		moveBlocksOneRowLowPitch();
 		//this moves tiles down the array, from the bigger numbered indexes to the smaller ones
+		
+		/*
 		if (rotationSteps < numberOfSquaresInHeight){
 			moveBlocksOneRowLowPitch();
 			rotationSteps++;
@@ -93,15 +99,17 @@ public class GameBoard {
 			rotationSteps = 0;
 			return false;
 		}
-	
+		*/
 	}
 
 
 
-	public boolean handleHighPitch(){
+	public void handleHighPitch(){
 		
 		clearTileSequence();
+		moveBlocksOneRowHighPitch();
 		//this moves tiles "up" the array, from the bigger numbered indexes to the smaller ones
+		/*
 		if (rotationSteps < numberOfSquaresInHeight){
 			moveBlocksOneRowHighPitch();
 			rotationSteps++;
@@ -110,28 +118,33 @@ public class GameBoard {
 			rotationSteps = 0;
 			return false;
 		}
-	
+		*/
 	}
 	
-	public boolean handleLowRoll(){
-		
+	public void handleLowRoll() {
 		clearTileSequence();
+		moveBlocksOneRowRightLowRoll();
 		//this moves tiles "right" in the array
+		/*
 		if (rotationSteps < numberOfSquaresInWidth){
-			moveBlocksOneRowRightLowRoll();
+			moveBlocksOneRowHighPitch();
 			rotationSteps++;
 			return true;
 		}else{
 			rotationSteps = 0;
 			return false;
 		}
+		*/
 			
 	}
 	
-	public boolean handleHighRoll(){
+	public void handleHighRoll(){
 		
 		clearTileSequence();
+		moveBlocksOneRowLeftHighRoll();
 		//this moves tiles "left" in the array
+		
+		/*
 		if (rotationSteps < numberOfSquaresInWidth){
 			moveBlocksOneRowLeftHighRoll();
 			rotationSteps++;
@@ -140,7 +153,7 @@ public class GameBoard {
 			rotationSteps = 0;
 			return false;
 		}
-			
+		*/
 	}
 	
 	
@@ -403,6 +416,8 @@ public class GameBoard {
 			}
 			clearTileSequence();
 			//could put something here for handling last gravity
+			//taking it out for the rotate game
+			/*
 			switch (lastTurnEvent){
 			case LOW_PITCH:
 				for (int moveIndex=0;moveIndex!=tileSequenceLength;moveIndex++){
@@ -428,7 +443,7 @@ public class GameBoard {
 				}
 				break;
 			}
-			
+			*/
 			
 		} else {
 			clearTileSequence();
