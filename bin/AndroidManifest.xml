@@ -28,6 +28,11 @@
             android:label="@string/title_activity_game"
             android:screenOrientation="portrait">
         </activity>
+        
+        <service
+            android:name="MusicService"
+            android:enabled="true" >
+        </service>
     </application>
 
 </manifest>
