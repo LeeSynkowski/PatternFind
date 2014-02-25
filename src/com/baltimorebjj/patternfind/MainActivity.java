@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
+	
+	static final int OPTIONS_MENU_SELECTED = 0;
+	private boolean musicOn = true;
+	private boolean soundEffectsOn = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,43 +24,25 @@ public class MainActivity extends Activity {
 		//set background image
 		RelativeLayout relativeLayout = new RelativeLayout(this);;
 		relativeLayout.setBackgroundResource(R.drawable.snowbackground);
-
-		/* This is using anon inner classes for the buttons, can we simplify?
-		//get references to buttons
-		Button startButton = (Button)findViewById(R.id.button1);
-		Button quitButton = (Button)findViewById(R.id.button2);
-		
-		//create anonymous inner class listeners for button clicks
-        startButton.setOnClickListener(new View.OnClickListener() {
-            
-        	//startButton click
-        	public void onClick(View v) {
-            
-        		//Bring Up new screen with the Game activity
-        		GameActivity gameActivity = new GameActivity();
-        		gameActivity.onCreate(savedInstanceState);
-            }
-        });
-        
-        quitButton.setOnClickListener(new View.OnClickListener() {
-            
-        	//quitButton click
-        	public void onClick(View v) {
-            
-        		// Perform action on click
-            }
-        });
-		*/
 		
 	}
 	
 	public void startGame(View view){
-		Intent intent = new Intent(this,GameActivity.class);
-		startActivity(intent);
+		Intent startGameIntent = new Intent(this,GameActivity.class);
+		//add intent extras which will toggle off music and sound
+		startGameIntent.putExtra("music", musicOn);
+		startGameIntent.putExtra("soundEffects",soundEffectsOn);
+		startGameIntent.putExtra("level", 1);
+		startActivity(startGameIntent);
+	}
+	
+	public void optionsMenu(View view){
+		Intent optionsIntent = new Intent(this,OptionsActivity.class);
+		startActivityForResult(optionsIntent,OPTIONS_MENU_SELECTED);
 	}
 	
 	public void quitGame(View view){
-		System.exit(0);
+		finish();
 	}
 
 	@Override
@@ -64,6 +50,16 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	protected void onActivityResult(int request,int result,Intent data){
+		if (request == OPTIONS_MENU_SELECTED){
+			if (result==RESULT_OK){
+				musicOn = data.getBooleanExtra("music", true);
+				soundEffectsOn = data.getBooleanExtra("soundEffects", true);
+			}
+		}
+
 	}
 
 }

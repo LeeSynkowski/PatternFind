@@ -11,4 +11,12 @@
     <string name="pitch">Pitch</string>
     <string name="roll">Roll</string>
     <string name="initial_value">--------</string>
+    <string name="title_activity_options">OptionsActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="music_option">Music</string>
+    <string name="sound_effects_option">Sound Effects</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="options">Options</string>
+
 </resources>

@@ -1,12 +1,22 @@
 package com.baltimorebjj.patternfind;
 
+import java.io.IOException;
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Menu;
@@ -28,7 +38,9 @@ public class GameActivity extends Activity implements SensorEventListener{
 	
 	private DrawingView drawingView;
 	
-	//private GestureDetector gestureDetector;
+	private MediaPlayer mPlayer;
+	private boolean playerPrepared = false;
+		
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +59,24 @@ public class GameActivity extends Activity implements SensorEventListener{
 		//get the DrawingView
 		drawingView = (DrawingView) findViewById(R.id.drawingView);
 		
-		//gestureDetector = new GestureDetector(this,gestureListener);
+		//Get the intent to set the volume levels
+		Intent startedIntent = getIntent();
+		//need to set the volume of the bg music here and pass a value to the sound effects to set later
+		drawingView.setHasSound(startedIntent.getBooleanExtra("soundEffects", true));
 		
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		mPlayer = MediaPlayer.create(GameActivity.this, R.raw.arp_music);
+		mPlayer.setLooping(true);
+		
+		//only start the music if the proper option is selected
+		if (startedIntent.getBooleanExtra("music", true)){
+			mPlayer.start();
+			
+		drawingView.setLevel(startedIntent.getIntExtra("level",1));
+		drawingView.newGame();
+		//this is where we start the game up
+		
+		}
 	}	
 	
 	@Override
@@ -58,10 +86,6 @@ public class GameActivity extends Activity implements SensorEventListener{
 		return true;
 	}
 	
-	public void backButton(View view){
-		finish();
-	}
-
 	@Override
 	protected void onResume(){
 		super.onResume();
@@ -72,6 +96,17 @@ public class GameActivity extends Activity implements SensorEventListener{
 	protected void onPause(){
 		super.onPause();
 		mSensorManager.unregisterListener(this);
+		if (mPlayer.isPlaying()){
+			mPlayer.pause();
+		}
+	}
+	
+	@Override
+	protected void onStop(){
+		super.onStop();
+		if (mPlayer.isPlaying()){
+			mPlayer.pause();
+		}
 	}
 	
 	@Override
@@ -84,12 +119,21 @@ public class GameActivity extends Activity implements SensorEventListener{
 	public void onSensorChanged(SensorEvent event) {
 		float pitch_angle = event.values[1];
 		float roll_angle = event.values[2];
-		//azimuthTextViewDisplay.setText(Float.toString(azimuth_angle));
-		//pitchTextViewDisplay.setText(Float.toString(pitch_angle));
-		//rollTextViewDisplay.setText(Float.toString(roll_angle));
 		drawingView.setAngles(pitch_angle, roll_angle);
-		//infoText.setText(drawingPanel.showDelay()+Float.toString(azimuth_angle));
 	}
 	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		mPlayer.release();
+		mPlayer = null;
+		finish();
+	}
+	
+	@Override
+	public void onBackPressed(){
+		drawingView.stopGame();
+		finish();
+	}
 
 }

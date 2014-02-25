@@ -24,10 +24,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="66dp"
-        android:text="@string/quit"
-        android:onClick="quitGame" />
+        android:layout_marginBottom="86dp"
+        android:onClick="quitGame"
+        android:text="@string/quit" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button1"
+        android:layout_centerVertical="true"
+        android:onClick="optionsMenu"
+        android:text="@string/options" />
 
 </RelativeLayout>

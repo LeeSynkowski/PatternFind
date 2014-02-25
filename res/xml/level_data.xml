@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<levels>
+    <level_number>1</level_number>
+    	<height>11</height>
+    	<width>9</width>
+    	<row>RGBRGBRGB</row>
+    	<row>GBRGBRGBR</row>
+    	<row>BRGBRGBRG</row>
+    	<row>RGBRGBRGB</row>
+    	<row>GBRGBRGBR</row>
+    	<row>BRGBRGBRG</row>
+        <row>RGBRGBRGB</row>
+    	<row>GBRGBRGBR</row>
+    	<row>BRGBRGBRG</row>
+    	<row>RGBRGBRGB</row>
+    	<row>GBRGBRGBR</row>  
+</levels>

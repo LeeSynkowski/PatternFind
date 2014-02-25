@@ -1,5 +1,6 @@
 package com.baltimorebjj.patternfind;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 
 public class GameTile {
@@ -15,7 +16,19 @@ public class GameTile {
 	
 	private boolean touched = false;
 	
+	private TileType tileType = TileType.GAME_TILE;
 	
+	private Orientation orientation = null;
+	
+	
+	public TileType getTileType() {
+		return tileType;
+	}
+
+	public void setTileType(TileType tileType) {
+		this.tileType = tileType;
+	}
+
 	public void setOccupied(boolean occupied){
 		this.occupied = occupied;
 	}
@@ -64,10 +77,37 @@ public class GameTile {
 	
 	public void switchTouched(){
 		touched = !touched;
+		/*
 		if (touched){
-			tilePaint.setAlpha(100);
+			tilePaint.setAlpha(10);
 		} else {
 			tilePaint.setAlpha(255);
 		}
+		*/
+	}
+	
+	public void makeStationary(){
+		this.tileType = TileType.STATIONARY_TILE;
+		this.setOccupied(true);
+	}
+	
+	public void makeBomb(){
+		this.tileType = TileType.BOMB_TILE;
+		this.setOccupied(true);
+	}
+	
+	public void makeRocket(Orientation orientation){
+		this.tileType = TileType.ROCKET_TILE;
+		this.setOccupied(true);
+		this.orientation = orientation;
+		
+	}
+	
+	public void setOrientation(Orientation orientation){
+		this.orientation = orientation;
+	}
+	
+	public Orientation getOrientation(){
+		return orientation;
 	}
 }
