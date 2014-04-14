@@ -37,6 +37,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Menu;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.*;
+
+
 public class GameActivity extends Activity implements SensorEventListener{
 	
 	private SensorManager mSensorManager;
@@ -49,8 +55,8 @@ public class GameActivity extends Activity implements SensorEventListener{
 	
 	private int level;
 
-		
-
+	private AdView myAdView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -67,6 +73,11 @@ public class GameActivity extends Activity implements SensorEventListener{
 		//Get the DrawingView
 		drawingView = (DrawingView) findViewById(R.id.drawingView);
 		
+		//Add the ads
+		myAdView = (AdView)this.findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder().build();
+	    myAdView.loadAd(adRequest);
+
 		//Get the intent to set the sound parameters
 		Intent startedIntent = getIntent();
 		
