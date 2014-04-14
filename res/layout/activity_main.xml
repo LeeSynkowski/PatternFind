@@ -20,17 +20,6 @@
         android:onClick="startGame"/>
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/button1"
-        android:layout_marginBottom="86dp"
-        android:onClick="quitGame"
-        android:text="@string/quit" />
-
-    <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,5 +28,27 @@
         android:layout_centerVertical="true"
         android:onClick="optionsMenu"
         android:text="@string/options" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/button1"
+        android:layout_marginBottom="46dp"
+        android:onClick="quitGame"
+        android:text="@string/quit" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_marginBottom="22dp"
+        android:text="@string/instructions"
+        android:onClick="instructions" />
 
 </RelativeLayout>

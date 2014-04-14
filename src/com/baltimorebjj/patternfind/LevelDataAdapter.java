@@ -1,0 +1,58 @@
+/*  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*
+*                    PATTERN FIND
+*  	                      
+*                                                                       
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   
+*              Name: LevelDataAdapter.java
+*     Creation Date: 3/19/2014
+*            Author: Lee Synkowski
+*  
+*     This is an Android array adapter sub class used to return the needed view
+*     for the ListView that displays the level select items. 
+*  
+* 
+*	Code Review:	Code reviewed 3/25/2014 by Lee Synkowski
+*  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+package com.baltimorebjj.patternfind;
+
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+public class LevelDataAdapter extends ArrayAdapter<LevelData>{
+
+	public LevelDataAdapter(Context context, List<LevelData> objects) {
+		super(context,R.layout.level_item,objects);
+	}
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // Get the data item for this position
+        LevelData levelData = getItem(position);  
+        
+        // Check if an existing view is being reused, otherwise inflate the view
+        if (convertView == null) {
+           convertView = LayoutInflater.from(getContext()).inflate(R.layout.level_item, null);
+        }
+        // Lookup view for data population
+        TextView levelName = (TextView) convertView.findViewById(R.id.levelName);
+        RatingBar stars = (RatingBar) convertView.findViewById(R.id.starsPerLevel);
+        // Populate the data into the template view using the data object
+        levelName.setText("" + levelData.levelNumber);
+        stars.setRating(levelData.numberOfStars);
+        
+        // Return the completed view to render on screen
+        return convertView;
+    }
+	
+}

@@ -72,13 +72,21 @@
     </RadioGroup>
 
     <Button
+        android:id="@+id/optionsResetStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/radioGroup2"
+        android:layout_below="@+id/radioGroup2"
+        android:text="@string/reset_stats"
+        android:onClick="resetStats"/>
+
+    <Button
         android:id="@+id/optionsBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="19dp"
-        android:layout_toRightOf="@+id/optionsTextView2"
-        android:text="@string/back"
-        android:onClick="backButtonPressed"/>
+        android:layout_alignLeft="@+id/optionsResetStats"
+        android:layout_below="@+id/optionsResetStats"
+        android:onClick="backButtonPressed"
+        android:text="@string/back" />
 
 </RelativeLayout>

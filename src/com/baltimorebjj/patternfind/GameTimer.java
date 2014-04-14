@@ -1,5 +1,5 @@
 package com.baltimorebjj.patternfind;
-
+/*
 import android.os.SystemClock;
 
 public class GameTimer {
@@ -54,3 +54,4 @@ public class GameTimer {
 	
 
 }
+*/

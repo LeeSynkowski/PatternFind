@@ -1,3 +1,27 @@
+/*  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*
+*                    PATTERN FIND
+*  	                      
+*                                                                       
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   
+*              Name: DrawingPanel.java
+*     Creation Date: 8/22/2013
+*            Author: Lee Synkowski
+*  
+*       This class is the graphic and display logic necessary to 
+*       play pattern find.  It is a subclass of the Surface view
+*       which is used in drawing complicated Android Animations
+*  
+* 
+*	Code Review:	Code reviewed 3/20/2014 by Lee Synkowski
+*  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+
 package com.baltimorebjj.patternfind;
 
 import android.content.Context;
@@ -15,46 +39,67 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback{
 	private PanelThread _thread;
 	
 	private Paint rectanglePaint;
+	
 	private Paint backgroundPaint;
 	
-	private SensorManager mSensorManager;
-	private Sensor mOrientation;
-	
-	private float azimuth_angle = 0;
-	private float pitch_angle = 0;
-	private float roll_angle = 0;
-	
 	private float squareTopX = 100;
+	
 	private float squareTopY = 100;
+	
 	private float squareBottomX = squareTopX + 50;
+	
 	private float squareBottomY = squareBottomX + 50;
 	
 	private long delay = -1000;
 	
+	//private SensorManager mSensorManager;
+	
+	//private Sensor mOrientation;
+	
+	//private float azimuth_angle = 0;
+	//private float pitch_angle = 0;
+	//private float roll_angle = 0;
+	
+
+	
 	
 	
 	public DrawingPanel(Context context) {
+		
 		super(context);
+		
 		getHolder().addCallback(this);
+
 		rectanglePaint = new Paint();
+
 		rectanglePaint.setColor(Color.BLUE);
+		
 		rectanglePaint.setStrokeWidth(15);
+
 		backgroundPaint = new Paint();
+
 		backgroundPaint.setColor(Color.WHITE);
+		
 	}
+	
 	
 	public DrawingPanel(Context context, AttributeSet attrs){
+		
 		super(context,attrs);
+		
 	}
 	
+	
 	public DrawingPanel(Context context, AttributeSet attrs, int defStyle){
+
 		super(context,attrs,defStyle);
+
 	}
 
+	
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -128,13 +173,16 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback{
 			}
 		}
 	}
-
+	
+	/* Delete after review
 	public void setAngles(float azimuth,float pitch,float roll){
 		azimuth_angle = azimuth;
 		pitch_angle = pitch;
 		roll_angle = roll;
 	}
-
+	*/
+	
+	
 	public String showDelay(){
 		return Long.toString(delay);
 	}

@@ -1,6 +1,27 @@
-package com.baltimorebjj.patternfind;
+/*  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*
+*                    PATTERN FIND
+*  	                      
+*                                                                       
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   
+*              Name: GameActivity.java
+*     Creation Date: 8/21/2013
+*            Author: Lee Synkowski
+*  
+*       This class holds the GameActivity that launches the drawing view
+*       that controls the game. It is responsible for receiving and
+*       delivering the sensor updates to the drawing view.  Also launching
+*       the next intent on game completion
+*  
+* 
+*	Code Review:	Code reviewed 3/21/2014 by Lee Synkowski
+*  
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-import java.io.IOException;
+
+package com.baltimorebjj.patternfind;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -8,38 +29,26 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
+import android.content.SharedPreferences;
 import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class GameActivity extends Activity implements SensorEventListener{
 	
 	private SensorManager mSensorManager;
-	private Sensor mOrientation;
-	//private TextView azimuthTextViewDisplay;
-	//private TextView pitchTextViewDisplay;
-	//private TextView rollTextViewDisplay;
-	//private DrawingPanel drawingPanel;
-	
-	//private TextView infoText;
-	
+	private Sensor mOrientation;	
 	private DrawingView drawingView;
 	
-	private MediaPlayer mPlayer;
-	private boolean playerPrepared = false;
+	private MediaPlayer mPlayer=null;
+	
+	private static GameActivity currentInstance;
+	
+	private int level;
+
 		
 
 	@Override
@@ -48,40 +57,72 @@ public class GameActivity extends Activity implements SensorEventListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		//set background image
-		RelativeLayout relativeLayout = new RelativeLayout(this);;
+		//Store the current instance so we can kill it from other activities
+		currentInstance = this;
 
-		
-		//get sensor references
+		//Get sensor references
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 		
-		//get the DrawingView
+		//Get the DrawingView
 		drawingView = (DrawingView) findViewById(R.id.drawingView);
 		
-		//Get the intent to set the volume levels
+		//Get the intent to set the sound parameters
 		Intent startedIntent = getIntent();
-		//need to set the volume of the bg music here and pass a value to the sound effects to set later
-		drawingView.setHasSound(startedIntent.getBooleanExtra("soundEffects", true));
 		
-		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		mPlayer = MediaPlayer.create(GameActivity.this, R.raw.arp_music);
-		mPlayer.setLooping(true);
+		//Set to play sound effects
+		drawingView.setHasSound(startedIntent.getBooleanExtra("soundEffectsOn", true));
 		
-		//only start the music if the proper option is selected
-		if (startedIntent.getBooleanExtra("music", true)){
+		//Only start the music if the proper option is selected
+		if (startedIntent.getBooleanExtra("musicOn", true)){
+			setVolumeControlStream(AudioManager.STREAM_MUSIC);
+			mPlayer = MediaPlayer.create(GameActivity.this, R.raw.arp_music);
+			mPlayer.setLooping(true);
 			mPlayer.start();
-			
-		drawingView.setLevel(startedIntent.getIntExtra("level",1));
-		drawingView.newGame();
-		//this is where we start the game up
-		
 		}
+		
+		//Give the DrawingView the correct level
+		level = startedIntent.getIntExtra("level",1);
+		drawingView.setLevel(level);
+		drawingView.setStartedIntent(startedIntent);
+		drawingView.setOnGameCompleteListener(new OnGameCompleteListener(){
+
+			@Override
+			public void onGameComplete(Intent startedIntent,int numberOfMoves, int twoStarMoves, int threeStarMoves) {
+
+				Intent levelCompleteIntent = new Intent(getApplicationContext(),LevelCompleteActivity.class);
+				
+				//Update the shared preferences file
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				String levelKey = String.valueOf(level);
+
+				if (numberOfMoves<prefs.getInt(levelKey,100000)){
+					SharedPreferences.Editor editor = prefs.edit();
+					editor.putInt(levelKey, numberOfMoves);
+					if (numberOfMoves <= threeStarMoves){
+						editor.putInt(levelKey+"stars", 3);
+					} else if (numberOfMoves <= twoStarMoves){
+						editor.putInt(levelKey+"stars", 2);
+					} else {
+						editor.putInt(levelKey+"stars", 1);
+					}
+					
+					editor.apply();
+				}
+				
+				//Add intent extras which will toggle off music and sound
+				levelCompleteIntent.putExtra("musicOn", startedIntent.getBooleanExtra("musicOn", true));
+				levelCompleteIntent.putExtra("soundEffectsOn",startedIntent.getBooleanExtra("soundEffectsOn", true));
+				levelCompleteIntent.putExtra("numberOfMoves",numberOfMoves);
+				levelCompleteIntent.putExtra("level",level);
+				startActivity(levelCompleteIntent);
+				finish();
+			}
+		});	
 	}	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.game, menu);
 		return true;
 	}
@@ -90,33 +131,45 @@ public class GameActivity extends Activity implements SensorEventListener{
 	protected void onResume(){
 		super.onResume();
 		mSensorManager.registerListener(this,mOrientation,SensorManager.SENSOR_DELAY_NORMAL);
+		if (mPlayer != null){
+			if (!mPlayer.isPlaying()){
+				mPlayer.start();
+			}
+		}
 	}
 	
 	@Override
 	protected void onPause(){
 		super.onPause();
 		mSensorManager.unregisterListener(this);
-		if (mPlayer.isPlaying()){
-			mPlayer.pause();
+		if (mPlayer != null){
+			if (mPlayer.isPlaying()){
+				mPlayer.pause();
+			}
 		}
 	}
 	
 	@Override
 	protected void onStop(){
 		super.onStop();
-		if (mPlayer.isPlaying()){
-			mPlayer.pause();
+		if (mPlayer != null){
+			if (mPlayer.isPlaying()){
+				mPlayer.pause();
+			}
 		}
 	}
 	
+	
 	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// not worried about this now
-		
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {		
+		//Must implement this method, but it doesn't have an impace on gameplay 
 	}
-
+	
+	
 	@Override
 	public void onSensorChanged(SensorEvent event) {
+		//Update angle values and pass them to the game in progress
+		//in the drawing view
 		float pitch_angle = event.values[1];
 		float roll_angle = event.values[2];
 		drawingView.setAngles(pitch_angle, roll_angle);
@@ -125,8 +178,10 @@ public class GameActivity extends Activity implements SensorEventListener{
 	@Override
 	public void onDestroy(){
 		super.onDestroy();
-		mPlayer.release();
-		mPlayer = null;
+		if (mPlayer!=null){
+			mPlayer.release();
+			mPlayer = null;
+		}
 		finish();
 	}
 	
@@ -134,6 +189,10 @@ public class GameActivity extends Activity implements SensorEventListener{
 	public void onBackPressed(){
 		drawingView.stopGame();
 		finish();
+	}
+
+	public static GameActivity getInstance(){
+		return currentInstance;
 	}
 
 }

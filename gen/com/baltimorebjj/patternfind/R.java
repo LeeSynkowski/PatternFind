@@ -44,30 +44,46 @@ public final class R {
         public static final int up_arrow=0x7f020014;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a000d;
-        public static final int button1=0x7f0a0001;
-        public static final int button2=0x7f0a0002;
-        public static final int button3=0x7f0a0003;
+        public static final int action_settings=0x7f0a0016;
+        public static final int button1=0x7f0a0005;
+        public static final int button2=0x7f0a0007;
+        public static final int button3=0x7f0a0006;
+        public static final int button4=0x7f0a0008;
         public static final int drawingView=0x7f0a0000;
-        public static final int music_off=0x7f0a0007;
-        public static final int music_on=0x7f0a0006;
-        public static final int optionsBackButton=0x7f0a000c;
-        public static final int optionsTextView1=0x7f0a0004;
-        public static final int optionsTextView2=0x7f0a0008;
-        public static final int radioGroup1=0x7f0a0005;
-        public static final int radioGroup2=0x7f0a0009;
-        public static final int sound_effects_off=0x7f0a000b;
-        public static final int sound_effects_on=0x7f0a000a;
+        public static final int levelCompleteInfo=0x7f0a0002;
+        public static final int levelName=0x7f0a0014;
+        public static final int levelSelectTextView=0x7f0a0003;
+        public static final int listView=0x7f0a0004;
+        public static final int listViewLevel=0x7f0a0013;
+        public static final int music_off=0x7f0a000c;
+        public static final int music_on=0x7f0a000b;
+        public static final int optionsBackButton=0x7f0a0012;
+        public static final int optionsResetStats=0x7f0a0011;
+        public static final int optionsTextView1=0x7f0a0009;
+        public static final int optionsTextView2=0x7f0a000d;
+        public static final int radioGroup1=0x7f0a000a;
+        public static final int radioGroup2=0x7f0a000e;
+        public static final int sound_effects_off=0x7f0a0010;
+        public static final int sound_effects_on=0x7f0a000f;
+        public static final int starsPerLevel=0x7f0a0015;
+        public static final int textView2=0x7f0a0001;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_options=0x7f030002;
+        public static final int activity_instructions=0x7f030001;
+        public static final int activity_level_complete=0x7f030002;
+        public static final int activity_level_select=0x7f030003;
+        public static final int activity_main=0x7f030004;
+        public static final int activity_options=0x7f030005;
+        public static final int level_item=0x7f030006;
     }
     public static final class menu {
         public static final int game=0x7f090000;
-        public static final int main=0x7f090001;
-        public static final int options=0x7f090002;
+        public static final int instructions=0x7f090001;
+        public static final int level_complete=0x7f090002;
+        public static final int level_select=0x7f090003;
+        public static final int main=0x7f090004;
+        public static final int options=0x7f090005;
     }
     public static final class raw {
         public static final int arp_music=0x7f050000;
@@ -87,18 +103,28 @@ public final class R {
         public static final int app_name=0x7f070000;
         public static final int azimuth=0x7f070006;
         public static final int back=0x7f070005;
+        public static final int blank=0x7f070019;
         public static final int hello_world=0x7f07000b;
         public static final int initial_value=0x7f070009;
+        public static final int instructions=0x7f070013;
+        public static final int instructions_text=0x7f070015;
+        public static final int level=0x7f07001a;
+        public static final int level_complete_text=0x7f070017;
+        public static final int level_select=0x7f070012;
         public static final int music_option=0x7f07000c;
         public static final int off=0x7f07000f;
         public static final int on=0x7f07000e;
         public static final int options=0x7f070010;
         public static final int pitch=0x7f070007;
         public static final int quit=0x7f070003;
+        public static final int reset_stats=0x7f070018;
         public static final int roll=0x7f070008;
         public static final int sound_effects_option=0x7f07000d;
         public static final int start_game=0x7f070002;
         public static final int title_activity_game=0x7f070004;
+        public static final int title_activity_instructions=0x7f070014;
+        public static final int title_activity_level_complete=0x7f070016;
+        public static final int title_activity_level_select=0x7f070011;
         public static final int title_activity_options=0x7f07000a;
     }
     public static final class style {

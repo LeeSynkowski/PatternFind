@@ -7,6 +7,7 @@ import android.graphics.Paint;
 //that have built in functionality to detect wether a touch occurs within their
 //borders
 
+
 public class CanvasButton {
 	
 	
