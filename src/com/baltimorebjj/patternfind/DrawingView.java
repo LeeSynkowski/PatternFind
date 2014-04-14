@@ -200,7 +200,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		//Store for use
 		screenWidth = w;
-		screenHeight = h;
+		screenHeight = (int)(h * (0.9));
 		screenRect = new Rect(0,0,screenWidth,screenHeight);
 
 		//New Game must be started from this callback method
@@ -462,15 +462,6 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	//game complete listener
 	public void gameLogic(Canvas canvas){
 		if (theGameBoard != null){
-			/*
-			int stationaryTileCount = 0;
-			for (GameTile t:theGameBoard.getActiveTiles()){
-				if (t.getTileType()==TileType.STATIONARY_TILE){
-					stationaryTileCount++;
-				}
-			}
-			*/
-			Log.v("LEE","Active tiles " + theGameBoard.getActiveTiles().size() + " stationary tiles " + stationaryTileCount);
 			if (((theGameBoard.getActiveTiles().size()-stationaryTileCount-emptyTileCount)==0)&&(theGameBoard.isAnimationComplete())&&(!bombAnimation)&&(!rocketAnimation)){
 				
 				if (drawingThread != null){

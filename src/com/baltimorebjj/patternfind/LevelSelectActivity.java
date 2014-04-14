@@ -42,6 +42,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+
+
 public class LevelSelectActivity extends Activity {
 
 	private boolean musicOn = true;
@@ -49,6 +51,8 @@ public class LevelSelectActivity extends Activity {
 	private Context mContext;
 	private ArrayList<LevelData> levelData = new ArrayList<LevelData>();
 	private LevelDataAdapter adapter;
+
+	private static final String AD_UNIT_ID = "ca-app-pub-3921690034232729/6220364092";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,8 @@ public class LevelSelectActivity extends Activity {
 		
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListenerListViewItem());
+		
+
 	}
 
 	//Method to update array list containing data about the state
@@ -104,7 +110,10 @@ public class LevelSelectActivity extends Activity {
 			    @Override
 			    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-			        TextView levelTextView = ((TextView) view.findViewById(R.id.levelName));
+			    	
+			    	//displayInterstitial();
+			    	
+			    	TextView levelTextView = ((TextView) view.findViewById(R.id.levelName));
 			 
 			        // Get the level
 			        int level = Integer.valueOf(levelTextView.getText().toString());
@@ -122,8 +131,6 @@ public class LevelSelectActivity extends Activity {
 			 
 	}
 	
-	
-	
-	
+
 
 }
