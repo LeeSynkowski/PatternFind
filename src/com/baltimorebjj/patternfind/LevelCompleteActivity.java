@@ -23,14 +23,19 @@ package com.baltimorebjj.patternfind;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class LevelCompleteActivity extends Activity {
 
+	private int levelCompleted;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,20 +44,52 @@ public class LevelCompleteActivity extends Activity {
 		
 		Intent startedIntent = getIntent();
 		
-		int levelCompleted = startedIntent.getIntExtra("level", 1);
+		levelCompleted = startedIntent.getIntExtra("level", 1);
 		
 		//Use SharedPreferences to retrieve data stored about levels completed
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		String levelKey = String.valueOf(levelCompleted);
-		
 		int numberOfMoves = startedIntent.getIntExtra("numberOfMoves", 0);
-		String displayString = "Congrats you have completed level " + levelKey + 
-								" in " + numberOfMoves + " moves. ";
-		displayString += " Your high score is " + prefs.getInt(levelKey,-1);
-		displayString += " You have " + prefs.getInt(levelKey+"stars",0) + " stars for the level. ";
+		int numberOfStars = prefs.getInt(levelKey+"stars",0);
 		
-		TextView mEditText = (TextView)findViewById(R.id.levelCompleteInfo);
-		mEditText.setText(displayString);
+		//set level complete
+		TextView mTextView = (TextView)findViewById(R.id.textViewYouHaveCompleted);
+		mTextView.setText(mTextView.getText()+levelKey);
+		
+		//set number of moves
+		mTextView = (TextView)findViewById(R.id.textViewNumberOfMoves);
+		mTextView.setText(mTextView.getText()+ "   " + String.valueOf(numberOfMoves));
+		
+		//set number of stars
+		RatingBar stars = (RatingBar)findViewById(R.id.starsPerLevel);
+		stars.setRating(numberOfStars);
+		
+		//set high score
+		mTextView = (TextView)findViewById(R.id.textViewLevelHighScore);
+		mTextView.setText(mTextView.getText()+ "   " + String.valueOf(prefs.getInt(levelKey,-1)));
+		
+		//set typefaces
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/electrictoaster.ttf");
+		mTextView = (TextView)findViewById(R.id.textViewCongratulations);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.textViewYouHaveCompleted);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.textViewNumberOfMoves);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.textViewYouHave);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.textViewXStars);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.textViewLevelHighScore);
+		mTextView.setTypeface(tf);
+		
+		Button mButton = (Button) findViewById(R.id.nextLevelButton);
+		mButton.setTypeface(tf);
+		mButton = (Button) findViewById(R.id.repeatLevelButton);
+		mButton.setTypeface(tf);
+		mButton = (Button) findViewById(R.id.levelSelectButton);
+		mButton.setTypeface(tf);
+		
 	}
 
 	@Override
@@ -61,5 +98,34 @@ public class LevelCompleteActivity extends Activity {
 		getMenuInflater().inflate(R.menu.level_complete, menu);
 		return true;
 	}
+	
+	public void nextLevelButtonPressed(View view){
 
+        //Get the intent ready to keep the data
+		Intent startGameIntent = new Intent(getBaseContext(),GameActivity.class);
+		//startGameIntent.putExtra("musicOn", musicOn);
+		//startGameIntent.putExtra("soundEffectsOn",soundEffectsOn);
+		startGameIntent.putExtra("level", levelCompleted + 1);
+		
+		//Start the new Game
+		startActivity(startGameIntent);
+		finish();
+	}
+	
+	public void repeatLevelButtonPressed(View view){
+        //Get the intent ready to keep the data
+		Intent startGameIntent = new Intent(getBaseContext(),GameActivity.class);
+		//startGameIntent.putExtra("musicOn", musicOn);
+		//startGameIntent.putExtra("soundEffectsOn",soundEffectsOn);
+		startGameIntent.putExtra("level", levelCompleted);
+		
+		//Start the new Game
+		startActivity(startGameIntent);
+		finish();
+	}
+
+	public void levelSelectButtonPressed(View view){
+		finish();
+	}	
+	
 }

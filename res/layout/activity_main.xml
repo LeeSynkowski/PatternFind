@@ -1,54 +1,58 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".MainActivity" 
-    android:background="@drawable/snowbackground">
+    android:background="@drawable/newtitlescreen">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" 
+        android:layout_weight="20"/>
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="106dp"
+        android:onClick="startGame"
         android:text="@string/start_game"
-        android:onClick="startGame"/>
-
+        android:layout_weight="1"
+        android:textColor="@color/button_text"/>
+    
     <Button
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignRight="@+id/button1"
-        android:layout_centerVertical="true"
         android:onClick="optionsMenu"
-        android:text="@string/options" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/button1"
-        android:layout_marginBottom="46dp"
-        android:onClick="quitGame"
-        android:text="@string/quit" />
+        android:text="@string/options"
+        android:layout_weight="1" 
+        android:textColor="@color/button_text"/>
+ 
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignRight="@+id/button2"
-        android:layout_marginBottom="22dp"
         android:text="@string/instructions"
-        android:onClick="instructions" />
+        android:onClick="instructions"
+        android:layout_weight="1" 
+        android:textColor="@color/button_text"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="quitGame"
+        android:text="@string/quit" 
+        android:layout_weight="1"
+        android:textColor="@color/button_text"/>
+    
+</LinearLayout>

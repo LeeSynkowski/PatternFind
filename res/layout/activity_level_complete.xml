@@ -1,27 +1,108 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_gravity="center"
+    android:background="@drawable/level_complete"
+    android:orientation="vertical"
     tools:context=".LevelCompleteActivity" >
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/level_complete_text" />
+        android:id="@+id/textViewCongratulations"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/congratulations"
+        android:textColor="#FFFFFF"  />
 
     <TextView
-        android:id="@+id/levelCompleteInfo"
+        android:id="@+id/textViewYouHaveCompleted"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/you_have_completed" 
+        android:textColor="#FFFFFF" />
+
+ <TextView
+        android:id="@+id/textViewNumberOfMoves"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/number_of_moves"
+        android:textColor="#FFFFFF" />
+    
+  <TextView
+        android:id="@+id/textViewYouHave"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/you_have"
+        android:textColor="#FFFFFF" />
+  
+  
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginLeft="54dp"
-        android:layout_marginTop="75dp"
-        android:text="" />
+        android:layout_gravity="center" >
 
-</RelativeLayout>
+        <RatingBar
+            android:id="@+id/starsPerLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="3" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textViewXStars"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/XStars" 
+        android:textColor="#FFFFFF" />
+    
+   <TextView
+        android:id="@+id/textViewLevelHighScore"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/level_high_score" 
+        android:textColor="#FFFFFF" />
+    
+    <Button
+        android:id="@+id/nextLevelButton"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:onClick="nextLevelButtonPressed"
+        android:text="@string/next_level_text"
+        android:layout_weight="1"
+        android:layout_gravity="center" 
+        android:textColor="@color/button_text" />
+    
+    <Button
+        android:id="@+id/repeatLevelButton"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:onClick="repeatLevelButtonPressed"
+        android:text="@string/repeat_level_text"
+        android:layout_weight="1"
+        android:layout_gravity="center" 
+        android:textColor="@color/button_text" />
+
+    <Button
+        android:id="@+id/levelSelectButton"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:onClick="levelSelectButtonPressed"
+        android:text="@string/level_select_text"
+        android:layout_weight="1"
+        android:layout_gravity="center" 
+        android:textColor="@color/button_text" />
+</LinearLayout>

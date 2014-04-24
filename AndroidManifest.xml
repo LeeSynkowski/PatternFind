@@ -41,7 +41,7 @@
         <activity
             android:name="com.baltimorebjj.patternfind.OptionsActivity"
             android:label="@string/title_activity_options"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.baltimorebjj.patternfind.LevelSelectActivity"
@@ -56,7 +56,7 @@
         <activity
             android:name="com.baltimorebjj.patternfind.LevelCompleteActivity"
             android:label="@string/title_activity_level_complete"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <meta-data android:name="com.google.android.gms.version"
            android:value="@integer/google_play_services_version" />

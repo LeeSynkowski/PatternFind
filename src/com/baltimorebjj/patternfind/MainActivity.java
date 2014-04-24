@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
@@ -43,9 +44,19 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//Set background image
-		RelativeLayout relativeLayout = new RelativeLayout(this);;
-		relativeLayout.setBackgroundResource(R.drawable.snowbackground);		
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/electrictoaster.ttf");
+		Button button = (Button)findViewById(R.id.button1);
+		button.setTypeface(tf);
+		//button.setAlpha(0.9F);
+		button = (Button)findViewById(R.id.button2);
+		button.setTypeface(tf);
+		//button.setAlpha(0.9F);
+		button = (Button)findViewById(R.id.button3);
+		button.setTypeface(tf);
+		//button.setAlpha(0.9F);
+		button = (Button)findViewById(R.id.button4);
+		button.setTypeface(tf);
+		//button.setAlpha(0.9F);
 	}
 	
 	public void startGame(View view){

@@ -89,12 +89,14 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
     
     
     //Tile bitmap images
-    private Bitmap stationaryTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_stationary);    
+    private Bitmap stationaryTile = BitmapFactory.decodeResource(getResources(), R.drawable.blackhole);    
     private Bitmap bombTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_bomb);    
-    private Bitmap redTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_yellow);    
-    private Bitmap greenTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_green);    
-    private Bitmap blueTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_blue);    
-    private Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.background);    
+    private Bitmap redTile = BitmapFactory.decodeResource(getResources(), R.drawable.redtile);    
+    private Bitmap greenTile = BitmapFactory.decodeResource(getResources(), R.drawable.greentile);    
+    private Bitmap blueTile = BitmapFactory.decodeResource(getResources(), R.drawable.bluetile);    
+    private Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.foxfurnebulabw);
+    private Bitmap startBall = BitmapFactory.decodeResource(getResources(), R.drawable.startball);   
+    private Bitmap finishBall = BitmapFactory.decodeResource(getResources(), R.drawable.finishball);   
     private Paint touchedPaint = new Paint();    
     private Rect screenRect;
     
@@ -103,16 +105,16 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
     private boolean bombAnimation = false;    
     private float bombX;    
     private float bombY;    
-    private Bitmap blastFrame1 = BitmapFactory.decodeResource(getResources(), R.drawable.blast1);    
-    private Bitmap blastFrame2 = BitmapFactory.decodeResource(getResources(), R.drawable.blast2);    
-    private Bitmap blastFrame3 = BitmapFactory.decodeResource(getResources(), R.drawable.blast3);    
+    private Bitmap blastFrame1 = BitmapFactory.decodeResource(getResources(), R.drawable.newblast1);    
+    private Bitmap blastFrame2 = BitmapFactory.decodeResource(getResources(), R.drawable.newblast2);    
+    private Bitmap blastFrame3 = BitmapFactory.decodeResource(getResources(), R.drawable.newblast3);    
     private ArrayList<Bitmap> bombBlastFrames = new ArrayList<Bitmap>();    
     private CanvasAnimator bombBlast;
     
     
     //Rocket Animation variables and bitmaps
-    private boolean rocketAnimation = false;    
-    private Bitmap upRocketTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_rocket);    
+    private boolean rocketAnimation = false;   
+    private Bitmap upRocketTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_rocket_new);    
     private Bitmap downRocketTile = RotateBitmap(upRocketTile, 180);    
     private Bitmap leftRocketTile = RotateBitmap(upRocketTile, 270);    
     private Bitmap rightRocketTile = RotateBitmap(upRocketTile, 90);    
@@ -182,14 +184,15 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		touchedPaint.setAlpha(190);
 		squarePaint.setColor(Color.BLUE);
 		backgroundPaint.setColor(Color.WHITE);
-		playAreaPaint.setColor(Color.BLACK);
+		playAreaPaint.setColor(Color.WHITE);
 		playAreaPaint.setStyle(Paint.Style.STROKE);
-		playAreaPaint.setStrokeWidth(2);
+		playAreaPaint.setStrokeCap(Paint.Cap.ROUND);
 		
 		startPaint.setColor(Color.GREEN);
 		endPaint.setColor(Color.RED);
-		linePaint.setColor(Color.BLACK);
+		linePaint.setColor(Color.WHITE);
 		linePaint.setAlpha(200);
+		
 		
 		
 	} //End constructor
@@ -200,7 +203,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		//Store for use
 		screenWidth = w;
-		screenHeight = (int)(h * (0.9));
+		screenHeight = (int)(h * (0.92));
 		screenRect = new Rect(0,0,screenWidth,screenHeight);
 
 		//New Game must be started from this callback method
@@ -223,6 +226,8 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		linePaint.setStrokeWidth(tileSize/8);
 		linePaint.setStrokeCap(Paint.Cap.ROUND);
+		
+		playAreaPaint.setStrokeWidth(3);
 		
 		playAreaTop = theGameBoard.getTopPosition();
 		playAreaBottom = theGameBoard.getBottomPosition();
@@ -736,28 +741,40 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	//For drawing the line that indicates selected tiles 
 	private void drawTileSequenceLine(Canvas canvas){
 		ArrayList<GameTile> localTouchedTiles = theGameBoard.getCopyOfTileSequqnce();
-		float[] localPointArray = theGameBoard.getCopyOfPointArray();	
+		float[] localPointArray = theGameBoard.getCopyOfPointArray();
+		float offset = theGameBoard.getTileSize()/4;
 		if (localTouchedTiles.size()==1){
 			GameTile tempTile = localTouchedTiles.get(0);
+			Rect startRectDest = new Rect((int)(tempTile.getLocationLeft()+offset),(int)(tempTile.getLocationTop()+offset),(int)tempTile.getLocationLeft()+(int)(theGameBoard.getTileSize()-offset),(int)tempTile.getLocationTop()+(int)(theGameBoard.getTileSize()-offset));
+			canvas.drawBitmap(startBall, null, startRectDest, null);
+			/*
 			canvas.drawCircle(tempTile.getLocationLeft()+(theGameBoard.getTileSize()/2), 
 						      tempTile.getLocationTop()+(theGameBoard.getTileSize()/2), 
 						      (theGameBoard.getTileSize()/SEQUENCE_INDICATOR_SCALE_FACTOR), 
 						      startPaint);
+			*/
 		} else if (localTouchedTiles.size()>1){
 			GameTile tempTile = localTouchedTiles.get(0);
 			canvas.drawLines(localPointArray, linePaint);
+			Rect startRectDest = new Rect((int)(tempTile.getLocationLeft()+offset),(int)(tempTile.getLocationTop()+offset),(int)tempTile.getLocationLeft()+(int)(theGameBoard.getTileSize()-offset),(int)tempTile.getLocationTop()+(int)(theGameBoard.getTileSize()-offset));
+			canvas.drawBitmap(startBall, null, startRectDest, null);
+			/*
 			canvas.drawCircle(tempTile.getLocationLeft()+(theGameBoard.getTileSize()/2), 
 						      tempTile.getLocationTop()+(theGameBoard.getTileSize()/2), 
 						      (theGameBoard.getTileSize()/SEQUENCE_INDICATOR_SCALE_FACTOR), 
 						      startPaint);
+			*/
 			if (!localTouchedTiles.isEmpty()){
 				tempTile = localTouchedTiles.get(localTouchedTiles.size()-1);
 			}
+			Rect finishRectDest = new Rect((int)(tempTile.getLocationLeft()+offset),(int)(tempTile.getLocationTop()+offset),(int)tempTile.getLocationLeft()+(int)(theGameBoard.getTileSize()-offset),(int)tempTile.getLocationTop()+(int)(theGameBoard.getTileSize()-offset));
+			canvas.drawBitmap(finishBall, null, finishRectDest, null);
+			/*
 			canvas.drawCircle(tempTile.getLocationLeft()+(theGameBoard.getTileSize()/2), 
 						      tempTile.getLocationTop()+(theGameBoard.getTileSize()/2), 
 						      (theGameBoard.getTileSize()/SEQUENCE_INDICATOR_SCALE_FACTOR), 
 						      endPaint);		
-			
+			*/
 
 		}	
 	}
