@@ -3,131 +3,108 @@
     <totalLevels>100</totalLevels>    
     <level_number>1</level_number>
     	<size>4</size>
-		<twoStarMoves>6</twoStarMoves>
-		<threeStarMoves>4</threeStarMoves>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
     	<row>RGBR</row>
-    	<row>udlr</row>
-    	<row>bGxR</row>
-    	<row>RGsR</row>
+    	<row>BxxG</row>
+    	<row>GxxB</row>
+    	<row>RBGR</row>
 
     <level_number>2</level_number>
-    	<size>5</size>
-		<twoStarMoves>8</twoStarMoves>
-		<threeStarMoves>5</threeStarMoves>
-    	<row>RGBRG</row>
-    	<row>RGBRG</row>
-    	<row>RGBRG</row>
-    	<row>RGBRG</row>
-    	<row>RGBRG</row>
+    	<size>4</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>RxxG</row>
+    	<row>xxxx</row>
+    	<row>xxxx</row>
+    	<row>RxxB</row>
+
     	
     <level_number>3</level_number>
-    	<size>6</size>
-		<twoStarMoves>9</twoStarMoves>
-		<threeStarMoves>6</threeStarMoves>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
+    	<size>4</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>RGBR</row>
+    	<row>BRGG</row>
+    	<row>GRBB</row>
+    	<row>RBGR</row>
     	
     <level_number>4</level_number>
-    	<size>6</size>
-		<twoStarMoves>9</twoStarMoves>
-		<threeStarMoves>6</threeStarMoves>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
-    	<row>RGBRGB</row>
+    	<size>5</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>RxGxB</row>
+    	<row>xxxxx</row>
+    	<row>BxGxR</row>
+    	<row>xxxxx</row>
+    	<row>RxGxB</row>
 
     <level_number>5</level_number>
-    	<size>7</size>
-		<twoStarMoves>10</twoStarMoves>
-		<threeStarMoves>7</threeStarMoves>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>    	
-    	<row>RGBRGBR</row>
+    	<size>4</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>Rxxx</row>
+    	<row>GBRG</row>
+    	<row>Bxxx</row>
+    	<row>RBGR</row>
+
     	
     <level_number>6</level_number>
-    	<size>8</size>
-		<twoStarMoves>11</twoStarMoves>
-		<threeStarMoves>8</threeStarMoves>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>    	
+    	<size>4</size>
+		<twoStarMoves>3</twoStarMoves>
+		<threeStarMoves>2</threeStarMoves>
+    	<row>RRGB</row>
+    	<row>BRGR</row>
+    	<row>RRGB</row>
+    	<row>BuGR</row>   	
 
     <level_number>7</level_number>
-    	<size>9</size>
-		<twoStarMoves>12</twoStarMoves>
-		<threeStarMoves>9</threeStarMoves>
-    	<row>rGBRGBRGd</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGbRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBbGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>uGBRGBRGl</row> 
-    	
-    <level_number>8</level_number>
-    	<size>7</size>
-		<twoStarMoves>10</twoStarMoves>
-		<threeStarMoves>7</threeStarMoves>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>
-    	<row>RGBRGBR</row>    	
-    	<row>RGBRGBR</row>
-    	
-    <level_number>9</level_number>
-    	<size>8</size>
-		<twoStarMoves>11</twoStarMoves>
-		<threeStarMoves>8</threeStarMoves>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>
-    	<row>RGBRGBRG</row>    	
-
-    <level_number>10</level_number>
-    	<size>9</size>
-		<twoStarMoves>12</twoStarMoves>
-		<threeStarMoves>9</threeStarMoves>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>
-    	<row>RGBRGBRGB</row>      		
-
-    <level_number>11</level_number>
     	<size>4</size>
 		<twoStarMoves>6</twoStarMoves>
 		<threeStarMoves>4</threeStarMoves>
-    	<row>RGBR</row>
-    	<row>RGBR</row>
-    	<row>RGBR</row>
-    	<row>RGBR</row>
+    	<row>BGRl</row>
+    	<row>GGBR</row>
+    	<row>RRBG</row>
+    	<row>rRGB</row> 
+    	
+    <level_number>8</level_number>
+    	<size>4</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>xxRx</row>
+    	<row>xxBx</row>
+    	<row>RGGR</row>
+    	<row>xxBx</row> 
+    	
+    <level_number>9</level_number>
+    	<size>5</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>xxxxx</row>
+    	<row>xGxGx</row>
+    	<row>xRsRx</row>
+    	<row>xBxBx</row>
+    	<row>xxxxx</row>    	
+
+    <level_number>10</level_number>
+     	<size>5</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>RxGxB</row>
+    	<row>xxxxx</row>
+    	<row>GxbxR</row>
+    	<row>xxxxx</row>
+    	<row>RxBxG</row>      		
+
+    <level_number>11</level_number>
+     	<size>5</size>
+		<twoStarMoves>2</twoStarMoves>
+		<threeStarMoves>1</threeStarMoves>
+    	<row>RxxxR</row>
+    	<row>GGGGB</row>
+    	<row>BGbGG</row>
+    	<row>RGGGR</row>
+    	<row>RGBGB</row>    
 
     <level_number>12</level_number>
     	<size>5</size>

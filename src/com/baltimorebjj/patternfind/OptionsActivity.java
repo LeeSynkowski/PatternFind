@@ -23,9 +23,13 @@ import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class OptionsActivity extends Activity {
@@ -39,6 +43,23 @@ public class OptionsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_options);
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/electrictoaster.ttf");
+		Button textButton = (Button) findViewById(R.id.optionsTextView1);
+		textButton.setTypeface(tf);
+		textButton = (Button) findViewById(R.id.optionsTextView2);
+		textButton.setTypeface(tf);
+		RadioButton radioButton = (RadioButton) findViewById(R.id.music_on);
+		radioButton.setTypeface(tf);
+		radioButton = (RadioButton) findViewById(R.id.music_off);
+		radioButton.setTypeface(tf);
+		radioButton = (RadioButton) findViewById(R.id.sound_effects_on);
+		radioButton.setTypeface(tf);
+		radioButton = (RadioButton) findViewById(R.id.sound_effects_off);
+		radioButton.setTypeface(tf);
+		Button mButton = (Button) findViewById(R.id.optionsBackButton);
+		mButton.setTypeface(tf);
+		mButton = (Button) findViewById(R.id.optionsResetStats);
+		mButton.setTypeface(tf);
 		musicEffectsSelected = (RadioGroup) findViewById(R.id.radioGroup1);
 		soundEffectsSelected = (RadioGroup) findViewById(R.id.radioGroup2);
 	}
@@ -54,19 +75,30 @@ public class OptionsActivity extends Activity {
 	public void backButtonPressed(View view){
 		int musicSelectedId = musicEffectsSelected.getCheckedRadioButtonId();
 		
+		//create shared prefs for this
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		
 		if (musicSelectedId == R.id.music_on){
 			musicOn = true;
+			editor.putBoolean("music", true);
 		}else{
 			musicOn = false;
+			editor.putBoolean("music", false);
 		}
 		
 		int soundEffectsSelectedId = soundEffectsSelected.getCheckedRadioButtonId();
 		
 		if (soundEffectsSelectedId == R.id.sound_effects_on){
 			soundEffectsOn = true;
+			editor.putBoolean("soundEffects", true);
 		}else{
 			soundEffectsOn = false;
+			editor.putBoolean("soundEffects", false);
 		}
+		
+		editor.apply();
 		
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra("musicOn",musicOn);

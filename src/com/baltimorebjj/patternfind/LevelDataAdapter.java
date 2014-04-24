@@ -23,6 +23,7 @@ package com.baltimorebjj.patternfind;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,10 @@ public class LevelDataAdapter extends ArrayAdapter<LevelData>{
         }
         // Lookup view for data population
         TextView levelName = (TextView) convertView.findViewById(R.id.levelName);
+        //TextView level = (TextView) convertView.findViewById(R.id.listViewLevel);
+       // Typeface tf = Typeface.createFromAsset(parent.getContext().getAssets(), "electrictoaster.ttf");
+       // levelName.setTypeface(tf);
+       // level.setTypeface(tf);
         RatingBar stars = (RatingBar) convertView.findViewById(R.id.starsPerLevel);
         // Populate the data into the template view using the data object
         levelName.setText("" + levelData.levelNumber);

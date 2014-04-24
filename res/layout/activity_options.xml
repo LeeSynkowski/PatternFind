@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,87 +6,110 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".OptionsActivity" >
+    tools:context=".OptionsActivity" 
+    android:orientation="vertical"
+    android:background="@drawable/butterfly_nebulabw">
 
-    <TextView
+    <Button
         android:id="@+id/optionsTextView1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/music_option" />
+        android:text="@string/music_option" 
+        android:layout_weight="4"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/button_text" 
+        android:enabled="false"/>
 
     <RadioGroup
         android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/optionsTextView1"
-        android:layout_below="@+id/optionsTextView1"
-        android:layout_marginTop="25dp" >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/button_text" >
 
         <RadioButton
             android:id="@+id/music_on"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:checked="true"
-            android:text="@string/on" />
+            android:text="@string/on"
+            android:textColor="@color/button_text" 
+            android:gravity="center" />
 
         <RadioButton
             android:id="@+id/music_off"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/off" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/off"
+            android:textColor="@color/button_text"
+            android:gravity="center"  />
     </RadioGroup>
 
-    <TextView
+    <Button
         android:id="@+id/optionsTextView2"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioGroup1"
-        android:layout_below="@+id/radioGroup1"
-        android:layout_marginTop="72dp"
-        android:text="@string/sound_effects_option" />
+        android:text="@string/sound_effects_option"
+        android:layout_weight="4"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/button_text"  
+        android:enabled="false"/>
 
     <RadioGroup
         android:id="@+id/radioGroup2"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/optionsTextView2"
-        android:layout_below="@+id/optionsTextView2"
-        android:layout_marginTop="31dp" >
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/button_text"  >
 
         <RadioButton
             android:id="@+id/sound_effects_on"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:checked="true"
-            android:text="@string/on" />
+            android:text="@string/on"
+            android:textColor="@color/button_text"
+            android:gravity="center"  />
 
         <RadioButton
             android:id="@+id/sound_effects_off"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/off" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/off"
+            android:textColor="@color/button_text"
+            android:gravity="center"  />
     </RadioGroup>
 
     <Button
-        android:id="@+id/optionsResetStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/radioGroup2"
-        android:layout_below="@+id/radioGroup2"
-        android:text="@string/reset_stats"
-        android:onClick="resetStats"/>
-
-    <Button
         android:id="@+id/optionsBackButton"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/optionsResetStats"
-        android:layout_below="@+id/optionsResetStats"
         android:onClick="backButtonPressed"
-        android:text="@string/back" />
+        android:text="@string/save_options"
+        android:layout_weight="1"
+        android:layout_gravity="center" 
+        android:textColor="@color/button_text" />
+    
+    <Button
+        android:id="@+id/optionsResetStats"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_stats"
+        android:onClick="resetStats"
+        android:layout_weight="1"
+        android:layout_gravity="center" 
+        android:textColor="@color/button_text" />
 
-</RelativeLayout>
+
+
+</LinearLayout>

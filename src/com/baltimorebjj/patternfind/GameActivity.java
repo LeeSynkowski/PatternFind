@@ -82,10 +82,14 @@ public class GameActivity extends Activity implements SensorEventListener{
 		Intent startedIntent = getIntent();
 		
 		//Set to play sound effects
-		drawingView.setHasSound(startedIntent.getBooleanExtra("soundEffectsOn", true));
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		
+		//drawingView.setHasSound(startedIntent.getBooleanExtra("soundEffectsOn", true));
+		drawingView.setHasSound(prefs.getBoolean("soundEffects", true));
 		
 		//Only start the music if the proper option is selected
-		if (startedIntent.getBooleanExtra("musicOn", true)){
+		//if (startedIntent.getBooleanExtra("musicOn", true)){
+		if (prefs.getBoolean("music", true)){
 			setVolumeControlStream(AudioManager.STREAM_MUSIC);
 			mPlayer = MediaPlayer.create(GameActivity.this, R.raw.arp_music);
 			mPlayer.setLooping(true);

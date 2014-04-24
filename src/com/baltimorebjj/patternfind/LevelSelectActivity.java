@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -64,6 +65,10 @@ public class LevelSelectActivity extends Activity {
 		setLevelData();
 		
 		setContentView(R.layout.activity_level_select);
+		
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/electrictoaster.ttf");
+		Button button = (Button)findViewById(R.id.levelSelectButton);
+		button.setTypeface(tf);
 		
 		ListView listView = (ListView) findViewById(R.id.listView);
 		
