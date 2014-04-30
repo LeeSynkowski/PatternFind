@@ -131,7 +131,7 @@ public class LevelSelectActivity extends Activity {
 					
 					//Start the new Game
 					startActivity(startGameIntent);
-			        		 
+					overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);		 
 			    }
 			 
 	}

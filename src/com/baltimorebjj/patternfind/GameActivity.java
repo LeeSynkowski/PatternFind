@@ -51,8 +51,6 @@ public class GameActivity extends Activity implements SensorEventListener{
 	
 	private MediaPlayer mPlayer=null;
 	
-	private static GameActivity currentInstance;
-	
 	private int level;
 
 	private AdView myAdView;
@@ -63,9 +61,7 @@ public class GameActivity extends Activity implements SensorEventListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
-		//Store the current instance so we can kill it from other activities
-		currentInstance = this;
-
+			
 		//Get sensor references
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
@@ -103,8 +99,9 @@ public class GameActivity extends Activity implements SensorEventListener{
 		drawingView.setOnGameCompleteListener(new OnGameCompleteListener(){
 
 			@Override
-			public void onGameComplete(Intent startedIntent,int numberOfMoves, int twoStarMoves, int threeStarMoves) {
+			public void onGameComplete(Intent startedIntent,int numberOfMoves, int twoStarMoves, int threeStarMoves, boolean finished) {
 
+			if (finished){	
 				Intent levelCompleteIntent = new Intent(getApplicationContext(),LevelCompleteActivity.class);
 				
 				//Update the shared preferences file
@@ -132,6 +129,18 @@ public class GameActivity extends Activity implements SensorEventListener{
 				levelCompleteIntent.putExtra("level",level);
 				startActivity(levelCompleteIntent);
 				finish();
+			}
+			//reset condition
+			else{			
+				Intent restartIntent = new Intent(getApplicationContext(),GameActivity.class);
+				level = startedIntent.getIntExtra("level",1);
+				restartIntent.putExtra("level",level);
+				finish();
+				//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+				startActivity(restartIntent);
+				//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+				
+			}
 			}
 		});	
 	}	
@@ -206,8 +215,5 @@ public class GameActivity extends Activity implements SensorEventListener{
 		finish();
 	}
 
-	public static GameActivity getInstance(){
-		return currentInstance;
-	}
 
 }

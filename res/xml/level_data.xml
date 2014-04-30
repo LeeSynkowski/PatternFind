@@ -6,8 +6,8 @@
 		<twoStarMoves>2</twoStarMoves>
 		<threeStarMoves>1</threeStarMoves>
     	<row>RGBR</row>
-    	<row>BxxG</row>
-    	<row>GxxB</row>
+    	<row>BRGG</row>
+    	<row>GRBB</row>
     	<row>RBGR</row>
 
     <level_number>2</level_number>
@@ -25,8 +25,8 @@
 		<twoStarMoves>2</twoStarMoves>
 		<threeStarMoves>1</threeStarMoves>
     	<row>RGBR</row>
-    	<row>BRGG</row>
-    	<row>GRBB</row>
+    	<row>BxxG</row>
+    	<row>GxxB</row>
     	<row>RBGR</row>
     	
     <level_number>4</level_number>

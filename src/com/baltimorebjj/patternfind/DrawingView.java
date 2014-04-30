@@ -61,7 +61,10 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	private float playAreaLeft;	
 	private float playAreaBottom;	
 	private float playAreaRight;
-	
+	private Rect resetButtonRect;
+	private Rect patternBackgroundRect;
+	private Rect borderRect;
+
 	
 	//Variables for game play
 	private boolean gameOver = true;	
@@ -97,6 +100,8 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
     private Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.foxfurnebulabw);
     private Bitmap startBall = BitmapFactory.decodeResource(getResources(), R.drawable.startball);   
     private Bitmap finishBall = BitmapFactory.decodeResource(getResources(), R.drawable.finishball);   
+    private Bitmap patternBackground = BitmapFactory.decodeResource(getResources(), R.drawable.patternbackbround);
+    private Bitmap borderImage = BitmapFactory.decodeResource(getResources(), R.drawable.border);
     private Paint touchedPaint = new Paint();    
     private Rect screenRect;
     
@@ -122,6 +127,9 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
     private float ROCKET_MOVEMENT_INCREMENT;        
     private ImageView bgImage;
     
+    
+    //Reset Button
+    private Bitmap resetButton = BitmapFactory.decodeResource(getResources(), R.drawable.resetbutton);
     
     //Tracking Line Variables
 	private Paint startPaint = new Paint();	
@@ -237,6 +245,31 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		twoStarMoves = theGameBoard.getTwoStarMoves();
 		threeStarMoves = theGameBoard.getThreeStarMoves();
 		
+		resetButtonRect = new Rect((int)theGameBoard.resetButton.getButtonLeft(),
+										(int)theGameBoard.resetButton.getButtonTop(),
+				                        (int)(theGameBoard.resetButton.getButtonLeft()+theGameBoard.resetButton.getButtonWidth()),
+				                        (int)(theGameBoard.resetButton.getButtonTop()+theGameBoard.resetButton.getButtonHeight()));
+		
+		float heightUnit = (screenHeight - theGameBoard.getBottomPosition())/10;
+		float widthUnit = (screenWidth)/6;
+		
+		
+		patternBackgroundRect = new Rect((int)  widthUnit,
+										 (int) (theGameBoard.getBottomPosition()+(5.5*heightUnit)),
+										 (int)  widthUnit*5,
+										 (int) (theGameBoard.getBottomPosition()+(9.5*heightUnit)));
+		
+		borderRect = new Rect((int) playAreaLeft,
+				 (int) playAreaTop,
+				 (int)  playAreaRight,
+				 (int) playAreaBottom);
+		/*
+		patternBackgroundRect = new Rect((int) (theGameBoard.getBottomPosition()),
+				 0,
+				 screenHeight,
+				 screenWidth);
+		*/
+		
 		for (GameTile t:theGameBoard.getActiveTiles()){
 			if (t.getTileType()==TileType.STATIONARY_TILE){
 				stationaryTileCount++;
@@ -317,13 +350,20 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		
 		//Draw the background rectangle
-		canvas.drawRect(playAreaLeft, playAreaTop, playAreaRight, playAreaBottom, playAreaPaint);			
-
+		//canvas.drawRect(playAreaLeft, playAreaTop, playAreaRight, playAreaBottom, playAreaPaint);			
+		canvas.drawBitmap(borderImage, null, borderRect, null);
+		
 		//Draw the pattern at the bottom of the screen
+		
+		canvas.drawBitmap(patternBackground, null, patternBackgroundRect, null);
+		
 		ArrayList<GameTile> localPatternTiles = theGameBoard.thePattern.getTilePattern();
 		for (GameTile tile:localPatternTiles){
 			drawPatternTile(tile,canvas);
 		}
+		
+		//Draw the reset button
+		canvas.drawBitmap(resetButton, null, resetButtonRect, null);
 		
 		//Draw the active tiles
 		ArrayList<GameTile> localActiveTiles = theGameBoard.getCopyOfActiveTiles();
@@ -472,7 +512,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 				if (drawingThread != null){
 					drawingThread.setRunning(false);
 				}
-				onGameCompleteListener.onGameComplete(startedIntent,numberOfMoves,twoStarMoves,threeStarMoves);				
+				onGameCompleteListener.onGameComplete(startedIntent,numberOfMoves,twoStarMoves,threeStarMoves,true);				
 			}
 		}
 	}
@@ -483,7 +523,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		if (drawingThread != null)
 			drawingThread.setRunning(false);
 		if (gameOver){
-			onGameCompleteListener.onGameComplete(startedIntent,numberOfMoves,twoStarMoves,threeStarMoves);
+			onGameCompleteListener.onGameComplete(startedIntent,numberOfMoves,twoStarMoves,threeStarMoves,true);
 		}
 	}
 	
@@ -646,7 +686,10 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 				//Begin rocket animation state
 				rocketAnimation= true;
 				numberOfMoves++;
-				break;			
+				break;
+			case RESET:
+				onGameCompleteListener.onGameComplete(startedIntent,numberOfMoves,twoStarMoves,threeStarMoves,false);
+				break;
 			default:
 				break;		
 			}

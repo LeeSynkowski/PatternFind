@@ -44,6 +44,7 @@ public class GameBoard {
 	private TurnEvent lastTurnEvent;
 	private GameTile lastTile = new GameTile();	
 	private GameTile dummyTile;
+	public CanvasButton resetButton;
 	
 	
 	//GameBoard collections
@@ -111,6 +112,15 @@ public class GameBoard {
 		leftPosition =  screenW/20;
 		bottomPosition = topPosition + ((9* screenW)/10);
 		rightPosition = leftPosition + ((9* screenW)/10);
+		
+		//Define the position of the reset button
+		float heightUnit = (screenH - bottomPosition)/10;
+		float widthUnit = (screenW)/6;
+		resetButton = new CanvasButton();
+		resetButton.setButtonLeft(widthUnit);
+		resetButton.setButtonTop(bottomPosition+(heightUnit));
+		resetButton.setButtonHeight(heightUnit * 3);
+		resetButton.setButtonWidth(widthUnit * 4);
 		
 		//Initialize a given level
 		Level currentLevel = new Level(level,topPosition,leftPosition,rightPosition,context);
@@ -325,6 +335,11 @@ public class GameBoard {
 
 	//This method responds to touch event that occurs within the game play area
 	public synchronized TouchEvent handleTouch(float x, float y) {		
+		
+		//Check if touch is in Reset button
+		if (resetButton.isPointInsideButton(x, y)){
+			return TouchEvent.RESET;
+		}
 		
 		//Check if touch is outside game board, if so return and do nothing
 		if ( (x<leftPosition) || (x>rightPosition) || (y<topPosition) || (y>bottomPosition) ){

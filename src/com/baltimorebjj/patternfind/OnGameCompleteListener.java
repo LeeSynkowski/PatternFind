@@ -20,6 +20,6 @@ package com.baltimorebjj.patternfind;
 import android.content.Intent;
 
 public interface OnGameCompleteListener {
-	public void onGameComplete(Intent startedIntent,int numberOfMoves, int twoStarMoves, int threeStarMoves);
+	public void onGameComplete(Intent startedIntent,int numberOfMoves, int twoStarMoves, int threeStarMoves,boolean gamefinished);
 
 }
