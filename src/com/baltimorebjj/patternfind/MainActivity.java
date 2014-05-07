@@ -21,6 +21,7 @@
 package com.baltimorebjj.patternfind;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -57,7 +58,16 @@ public class MainActivity extends Activity {
 		button = (Button)findViewById(R.id.button4);
 		button.setTypeface(tf);
 		//button.setAlpha(0.9F);
+		
+		
+		//make sure level one is playable
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("1playable", true);
+		editor.apply();
+
 	}
+	
 	
 	public void startGame(View view){
 		Intent levelSelectIntent = new Intent(this,LevelSelectActivity.class);

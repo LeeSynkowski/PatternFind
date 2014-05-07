@@ -23,7 +23,12 @@ package com.baltimorebjj.patternfind;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,9 +60,29 @@ public class LevelDataAdapter extends ArrayAdapter<LevelData>{
         // Populate the data into the template view using the data object
         levelName.setText("" + levelData.levelNumber);
         stars.setRating(levelData.numberOfStars);
+
+        
+        //Check if the given level is playable
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        
+		String levelPlayableKey = String.valueOf(position+1) + "playable";
+		if (prefs.getBoolean(levelPlayableKey, false)){
+        	convertView.setBackgroundResource(R.drawable.level_item_background);
+        } else {
+        	convertView.setBackgroundResource(R.drawable.level_item_background_greyed);
+        }
+
         
         // Return the completed view to render on screen
         return convertView;
     }
+    
+    
+    @Override
+    public boolean isEnabled(int position) {
+    	LevelData levelData = getItem(position);  
+    	return levelData.playable;
+    }
+    
 	
 }

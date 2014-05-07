@@ -85,9 +85,9 @@ public class LevelSelectActivity extends Activity {
 	private void setLevelData() {
 		levelData.clear();
 		int numberOfLevels = Level.NUMBER_OF_LEVELS;
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());	
 		for (int i=0;i<numberOfLevels;i++){
-			levelData.add(new LevelData(i+1,prefs.getInt(String.valueOf(i+1)+"stars",0)));
+			levelData.add(new LevelData(i+1,prefs.getInt(String.valueOf(i+1)+"stars",0),prefs.getBoolean(String.valueOf(i+1)+"playable", false)));
 		}
 		
 	}

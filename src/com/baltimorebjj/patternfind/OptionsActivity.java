@@ -113,9 +113,16 @@ public class OptionsActivity extends Activity {
 	public void resetStats(View view){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
+		//reset shared prefs
 		SharedPreferences.Editor editor = prefs.edit();
 	    editor.clear();
 	    editor.apply();
+	    
+	    //make level 1 playable
+		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		editor = prefs.edit();
+		editor.putBoolean("1playable", true);
+		editor.apply();
 
 	    Toast toast = Toast.makeText(getApplicationContext(), "Progress Reset",Toast.LENGTH_SHORT);
 	    toast.show();

@@ -191,7 +191,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		//Initialize Paints
 		touchedPaint.setAlpha(190);
 		squarePaint.setColor(Color.BLUE);
-		backgroundPaint.setColor(Color.WHITE);
+		backgroundPaint.setColor(Color.BLUE);
 		playAreaPaint.setColor(Color.WHITE);
 		playAreaPaint.setStyle(Paint.Style.STROKE);
 		playAreaPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -200,8 +200,6 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		endPaint.setColor(Color.RED);
 		linePaint.setColor(Color.WHITE);
 		linePaint.setAlpha(200);
-		
-		
 		
 	} //End constructor
 	
@@ -214,6 +212,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		screenHeight = (int)(h * (0.92));
 		screenRect = new Rect(0,0,screenWidth,screenHeight);
 
+		
 		//New Game must be started from this callback method
 		try {
 			newGame();
@@ -255,14 +254,14 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		
 		patternBackgroundRect = new Rect((int)  widthUnit,
-										 (int) (theGameBoard.getBottomPosition()+(5.5*heightUnit)),
+										 (int) (theGameBoard.getBottomPosition()+(4.5*heightUnit)),
 										 (int)  widthUnit*5,
-										 (int) (theGameBoard.getBottomPosition()+(9.5*heightUnit)));
-		
-		borderRect = new Rect((int) playAreaLeft,
-				 (int) playAreaTop,
-				 (int)  playAreaRight,
-				 (int) playAreaBottom);
+										 (int) (theGameBoard.getBottomPosition()+(8.5*heightUnit)));
+		int rectPadding = (int)((playAreaRight-playAreaLeft)/90);
+		borderRect = new Rect((int) playAreaLeft-rectPadding,
+				 (int) playAreaTop-rectPadding,
+				 (int)  playAreaRight+rectPadding,
+				 (int) playAreaBottom+rectPadding);
 		/*
 		patternBackgroundRect = new Rect((int) (theGameBoard.getBottomPosition()),
 				 0,

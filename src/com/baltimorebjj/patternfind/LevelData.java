@@ -23,9 +23,11 @@ public class LevelData {
 
 	public int levelNumber;
 	public int numberOfStars;
+	public boolean playable;
 	
-	public LevelData(int levelNumber,int numberOfStars){
+	public LevelData(int levelNumber,int numberOfStars,boolean playable){
 		this.levelNumber = levelNumber;
 		this.numberOfStars = numberOfStars;
+		this.playable = playable;
 	}
 }

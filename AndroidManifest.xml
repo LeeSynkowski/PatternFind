@@ -31,7 +31,8 @@
             android:name="com.baltimorebjj.patternfind.GameActivity"
             android:label="@string/title_activity_game"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/GameTheme">
         </activity>
 
         <service

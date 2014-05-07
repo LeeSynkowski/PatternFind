@@ -168,6 +168,7 @@ containing a value of this type.
         public static final int zOrderOnTop=0x7f010010;
     }
     public static final class color {
+        public static final int background_color=0x7f07000c;
         public static final int black=0x7f07000a;
         public static final int button_text=0x7f07000b;
         public static final int common_action_bar_splitter=0x7f070009;
@@ -182,8 +183,8 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f070006;
         public static final int common_signin_btn_light_text_focused=0x7f070007;
         public static final int common_signin_btn_light_text_pressed=0x7f070005;
-        public static final int common_signin_btn_text_dark=0x7f07000c;
-        public static final int common_signin_btn_text_light=0x7f07000d;
+        public static final int common_signin_btn_text_dark=0x7f07000d;
+        public static final int common_signin_btn_text_light=0x7f07000e;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -232,35 +233,37 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_dark=0x7f020021;
         public static final int common_signin_btn_text_pressed_light=0x7f020022;
         public static final int finishball=0x7f020023;
-        public static final int foxfurnebulabw=0x7f020024;
-        public static final int greentile=0x7f020025;
-        public static final int ic_launcher=0x7f020026;
-        public static final int ic_plusone_medium_off_client=0x7f020027;
-        public static final int ic_plusone_small_off_client=0x7f020028;
-        public static final int ic_plusone_standard_off_client=0x7f020029;
-        public static final int ic_plusone_tall_off_client=0x7f02002a;
-        public static final int instructions=0x7f02002b;
-        public static final int level_complete=0x7f02002c;
-        public static final int level_item_background=0x7f02002d;
-        public static final int level_select=0x7f02002e;
-        public static final int m64galaxybw=0x7f02002f;
-        public static final int mtnbackground=0x7f020030;
-        public static final int newblast1=0x7f020031;
-        public static final int newblast2=0x7f020032;
-        public static final int newblast3=0x7f020033;
-        public static final int newtitlescreen=0x7f020034;
-        public static final int patternbackbround=0x7f020035;
-        public static final int redtile=0x7f020036;
-        public static final int resetbutton=0x7f020037;
-        public static final int startball=0x7f020038;
-        public static final int tile_blue=0x7f020039;
-        public static final int tile_bomb=0x7f02003a;
-        public static final int tile_green=0x7f02003b;
-        public static final int tile_rocket=0x7f02003c;
-        public static final int tile_rocket_new=0x7f02003d;
-        public static final int tile_stationary=0x7f02003e;
-        public static final int tile_yellow=0x7f02003f;
-        public static final int titlescreen=0x7f020040;
+        public static final int foxfurloadscreen=0x7f020024;
+        public static final int foxfurnebulabw=0x7f020025;
+        public static final int greentile=0x7f020026;
+        public static final int ic_launcher=0x7f020027;
+        public static final int ic_plusone_medium_off_client=0x7f020028;
+        public static final int ic_plusone_small_off_client=0x7f020029;
+        public static final int ic_plusone_standard_off_client=0x7f02002a;
+        public static final int ic_plusone_tall_off_client=0x7f02002b;
+        public static final int instructions=0x7f02002c;
+        public static final int level_complete=0x7f02002d;
+        public static final int level_item_background=0x7f02002e;
+        public static final int level_item_background_greyed=0x7f02002f;
+        public static final int level_select=0x7f020030;
+        public static final int m64galaxybw=0x7f020031;
+        public static final int mtnbackground=0x7f020032;
+        public static final int newblast1=0x7f020033;
+        public static final int newblast2=0x7f020034;
+        public static final int newblast3=0x7f020035;
+        public static final int newtitlescreen=0x7f020036;
+        public static final int patternbackbround=0x7f020037;
+        public static final int redtile=0x7f020038;
+        public static final int resetbutton=0x7f020039;
+        public static final int startball=0x7f02003a;
+        public static final int tile_blue=0x7f02003b;
+        public static final int tile_bomb=0x7f02003c;
+        public static final int tile_green=0x7f02003d;
+        public static final int tile_rocket=0x7f02003e;
+        public static final int tile_rocket_new=0x7f02003f;
+        public static final int tile_stationary=0x7f020040;
+        public static final int tile_yellow=0x7f020041;
+        public static final int titlescreen=0x7f020042;
     }
     public static final class id {
         public static final int FrameLayout1=0x7f08000b;
@@ -498,6 +501,7 @@ containing a value of this type.
         /**  Application theme. 
          */
         public static final int AppTheme=0x7f0c0001;
+        public static final int GameTheme=0x7f0c0002;
     }
     public static final class xml {
         public static final int level_data=0x7f050000;

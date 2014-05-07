@@ -107,7 +107,7 @@ public class GameActivity extends Activity implements SensorEventListener{
 				//Update the shared preferences file
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 				String levelKey = String.valueOf(level);
-
+				
 				if (numberOfMoves<prefs.getInt(levelKey,100000)){
 					SharedPreferences.Editor editor = prefs.edit();
 					editor.putInt(levelKey, numberOfMoves);
@@ -118,7 +118,11 @@ public class GameActivity extends Activity implements SensorEventListener{
 					} else {
 						editor.putInt(levelKey+"stars", 1);
 					}
-					
+					editor.putBoolean(levelKey+"done" ,true);
+					if (level<Level.NUMBER_OF_LEVELS){
+						String nextPlayableLevel = String.valueOf(level + 1) + "playable";
+						editor.putBoolean(nextPlayableLevel,true);
+					}
 					editor.apply();
 				}
 				

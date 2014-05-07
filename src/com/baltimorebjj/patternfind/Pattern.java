@@ -59,7 +59,7 @@ public class Pattern {
 		float widthUnit = (screenWidth)/6;
 		
 		tileSize = (3)*(heightUnit);
-		float topLocation = bottomPosition + (6*heightUnit);
+		float topLocation = bottomPosition + (5*heightUnit);
 		
 		
 		firstElement.setPaintColor(color1);
