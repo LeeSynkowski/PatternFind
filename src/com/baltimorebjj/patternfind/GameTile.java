@@ -147,4 +147,8 @@ public class GameTile {
 	public Orientation getOrientation(){
 		return orientation;
 	}
+	
+	public void setTouched(boolean touch){
+		touched = touch;
+	}
 }

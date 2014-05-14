@@ -87,7 +87,7 @@ public class GameActivity extends Activity implements SensorEventListener{
 		//if (startedIntent.getBooleanExtra("musicOn", true)){
 		if (prefs.getBoolean("music", true)){
 			setVolumeControlStream(AudioManager.STREAM_MUSIC);
-			mPlayer = MediaPlayer.create(GameActivity.this, R.raw.arp_music);
+			mPlayer = MediaPlayer.create(GameActivity.this, R.raw.backgroundmusic);
 			mPlayer.setLooping(true);
 			mPlayer.start();
 		}
@@ -141,6 +141,7 @@ public class GameActivity extends Activity implements SensorEventListener{
 				restartIntent.putExtra("level",level);
 				finish();
 				//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+				System.gc();
 				startActivity(restartIntent);
 				//overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 				

@@ -347,7 +347,11 @@ public class GameBoard {
 			
 		//Check if the touched tile is occupied on the game board, 
 		//and not a member of the moving tiles
-		}else if ((theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)].isOccupied())&&(!movingTiles.contains(theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)]))){
+		}else if (!(theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)].isOccupied())){
+			clearTileSequence();
+			return TouchEvent.NOTHING;
+			
+		} else if ((theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)].isOccupied())&&(!movingTiles.contains(theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)]))){
 				
 				//Check if the touched tile is a game tile
 				if (theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)].getTileType()==TileType.GAME_TILE){
@@ -612,13 +616,18 @@ public class GameBoard {
 		}	
 	}
 	
-	//Method to determine if the Rocket has reached its final location
-	public boolean isRocketDone(int i, int j) {
-		if ((i == finalRocketX)&&(j == finalRocketY))
+	//Methods to determine if the Rocket has reached its final location
+	public boolean isRocketDoneIncreasing(int i, int j) {
+		if ((i >= finalRocketX)&&(j >= finalRocketY))
 			return true;
 		return false;
 	}
 	
+	public boolean isRocketDoneDecreasing(int i, int j) {
+		if ((i <= finalRocketX)&&(j <= finalRocketY))
+			return true;
+		return false;
+	}
 	
 	//Called when attempting to remove tiles,
 	//returns true if the pattern matched the desired pattern
@@ -711,12 +720,13 @@ public class GameBoard {
 			}
 		} 
 		
-		//If you are dragging back into the last correct square
+		//If you are dragging back into the last square in the sequence
 		if (tileSequence.size()>=2){
 				if (tileSequence.get(tileSequence.size()-2)==theBoard[turnXToWidthIndex(x)][turnYToHeightIndex(y)]){
 					GameTile lastTileDraggedOff = tileSequence.get(tileSequence.size()-1);
 					tileSequence.remove(tileSequence.get(tileSequence.size()-1));
-					theBoard[turnXToWidthIndex(lastTileDraggedOff.getLocationLeft())][turnYToHeightIndex(lastTileDraggedOff.getLocationTop())].switchTouched();
+					lastTileDraggedOff.switchTouched();
+					//theBoard[turnXToWidthIndex(lastTileDraggedOff.getLocationLeft())][turnYToHeightIndex(lastTileDraggedOff.getLocationTop())].switchTouched();
 					if (tileSequence.size()>1){
 						adjustPointArray();
 					}

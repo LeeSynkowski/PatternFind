@@ -23,7 +23,9 @@ package com.baltimorebjj.patternfind;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class InstructionsActivity extends Activity {
 
@@ -31,6 +33,33 @@ public class InstructionsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructions);
+		
+		Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/electrictoaster.ttf");
+		TextView mTextView = (TextView)findViewById(R.id.goalTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.patternTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.selectingTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.removingTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.tiltingTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.resetTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.specialTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.blackHoleTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.rocketTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.supernovaTilesTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.hintsTitleTextView);
+		mTextView.setTypeface(tf);
+		mTextView = (TextView)findViewById(R.id.videoLinkTitleTextView);
+		mTextView.setTypeface(tf);
+		
 	}
 
 	@Override

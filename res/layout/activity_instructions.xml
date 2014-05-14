@@ -1,17 +1,296 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/instructions"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".InstructionsActivity" 
-    android:background="@drawable/instructions">
-
+    tools:context=".InstructionsActivity">
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+    
     <TextView
+        android:id="@+id/videoLinkTitleTextView"
+        android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/instructions_text" />
+        android:text="@string/videoLinkTitle"
+        android:textColor="#FFFFFF"/>
+    
+    <TextView
+        android:id="@+id/videoLinkTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/videoLink"
+        android:autoLink="web"
+        android:textColor="#FFFFFF"/>
+    
+    <TextView
+        android:id="@+id/goalTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goalTitle"
+        android:textColor="#FFFFFF"/>
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goal"
+        android:textColor="#FFFFFF" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/patternTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/patternTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pattern"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pattern" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selectedtiles" />
+    
+    <TextView
+        android:id="@+id/selectingTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selectingTilesTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selectingTiles"
+        android:textColor="#FFFFFF" />
+    
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/whiteballselect" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/draggedsequence" />
+
+    <TextView
+        android:id="@+id/removingTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removingTilesTitle"
+        android:textColor="#FFFFFF" />
+   
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removingTiles"
+        android:textColor="#FFFFFF" />
+    
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/removinginitial" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/removinggone" />
+
+    
+     <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removingTilesMore"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/removingmoreinitial" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/removingmoregone" />     
+     
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removingTilesNoMatch"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:id="@+id/tiltingTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tiltingTilesTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tiltingTiles"
+        android:textColor="#FFFFFF" />
+    
+   <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tiltedinitial" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tiltedcomplete" />     
+    
+    <TextView
+        android:id="@+id/resetTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resetTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:textColor="#FFFFFF" />
+    
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/resetbutton" />
+    
+    <TextView
+        android:id="@+id/specialTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/specialTilesTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:id="@+id/blackHoleTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blackHoleTilesTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blackHoleTiles"
+        android:textColor="#FFFFFF" />
+    
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/blackhole" />
+    
+    <TextView
+        android:id="@+id/rocketTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rocketTilesTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rocketTiles"
+        android:textColor="#FFFFFF" />
+    
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tile_rocket_new" />
+    
+    <TextView
+        android:id="@+id/supernovaTilesTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/supernovaTilesTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/supernovaTiles"
+        android:textColor="#FFFFFF" />
+    
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tile_bomb" />
+    
+    <TextView
+        android:id="@+id/hintsTitleTextView"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hintsTitle"
+        android:textColor="#FFFFFF" />
+    
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hints"
+        android:textColor="#FFFFFF" />
+    
+                </LinearLayout>
+      </ScrollView>
+</LinearLayout>
+

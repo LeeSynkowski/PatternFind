@@ -40,5 +40,49 @@
     <string name="level_high_score">Level Best Score  </string>
     <string name="you_have">You have</string>
     <string name="instructions">Instructions</string>
+    
+    <string name="goalTitle">GOAL</string>
+	<string name="goal">The goal of Tile Tilt is to remove all of the game tiles from the game board in as few removes as possible.</string>
+	
+	<string name="patternTitle">PATTERN</string>
+	<string name="pattern">The pattern at the bottom of the screen represents the order tiles need to be selected from the play area.
+For example, if the tile sequence is as shown below, you would have to select tiles in the order Red,Green,Blue. (From white to black)
+</string>
+	
+	<string name="selectingTilesTitle">SELECTING TILES</string>
+	<string name="selectingTiles">To select your first tile, tap it on the screen.  It is marked with a white ball.  Add adjacent tiles by tapping on them, or dragging your finger to change the shape of the sequence.  The end of the sequence is marked with a black ball.</string>
+	
+	<string name="removingTilesTitle">REMOVING TILES</string>
+	<string name="removingTiles">When you have selected a sequence that matches the given pattern, tap the white ball to remove the tiles from the screen.  If the tiles match the sequence, they will be removed.</string>
+	
+	<string name="removingTilesMore">Sequences can contain three OR MORE tiles, as long as they follow the given pattern.</string>
+	
+	<string name="removingTilesNoMatch">If the tiles do not match, the selected sequence will be reset. You can also clear a sequence by touching on an empty space.</string>
 
+	
+	<string name="tiltingTilesTitle">TILTING TILES</string>
+	<string name="tiltingTiles">To move the tiles around on the screen, tip it in the direction you want them to fall.  The tiles will fall faster if the angle is increased.</string>
+	
+	<string name="resetTitle">RESET</string>
+	<string name="reset">Press the reset button to restart the stage.  The tile configuration remains the same, but the pattern colors may change.</string>
+	
+	<string name="specialTilesTitle">SPECIAL TILES</string>
+	
+	<string name="blackHoleTilesTitle">BLACK HOLE TILES</string>
+	<string name="blackHoleTiles">Black Hole Tiles are immune to the effects of gravity, and remain stationary when the board is tilted.</string>
+	
+	<string name="rocketTilesTitle">ROCKET TILES</string>
+	<string name="rocketTiles">Rocket tiles blast off in the direction they are pointing and eliminate all other tiles in their way until reaching the end of the play area or a black hole tile.</string>
+
+	<string name="supernovaTilesTitle">SUPERNOVA TILES</string>
+	<string name="supernovaTiles">Supernova Tiles explode and remove all adjacent tiles from the play area.</string>
+		
+	<string name="hintsTitle">HINTS</string>
+	<string name="hints">The game is best played laid flat initially.
+Try to remove long chains of tiles to earn 3 star ratings for each level.</string>
+
+	<string name="videoLinkTitle">INSTRUCTION VIDEO</string>
+	<string name="videoLink">www.youtube.com/watch?v=RBfmhPswqxc</string>
+	
+			
 </resources>

@@ -26,7 +26,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import org.xmlpull.v1.XmlPullParserException;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +53,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	
 	//Variables for game display
 	private DrawingThread drawingThread;  //Game display thread	
-	private SurfaceHolder mSurfaceHolder = null;	
+	//private SurfaceHolder mSurfaceHolder = null;	
 	private Paint backgroundPaint;	
 	private Paint squarePaint;	
 	private Paint playAreaPaint;
@@ -64,16 +67,17 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	private Rect resetButtonRect;
 	private Rect patternBackgroundRect;
 	private Rect borderRect;
+	private int patternNumber;
 
 	
 	//Variables for game play
-	private boolean gameOver = true;	
+	private boolean gameOver;	
 	private int level;	
-	private float pitch_angle = 0;	
-	private float roll_angle = 0;	
+	private float pitch_angle;	
+	private float roll_angle;	
 	private TurnEvent turnEvent;	
 	private TurnEvent previousTurnEvent;	
-	private GameBoard theGameBoard = null;	
+	private GameBoard theGameBoard;	
 	ArrayList<GameTile> touchedTiles;
 	private OnGameCompleteListener onGameCompleteListener;	
 	private Intent startedIntent;
@@ -83,64 +87,65 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	
 	//Variables for tracking frame rate 
     private long timeNow;  //for tracking frame rate    
-    private long timePrevFrame = 0; //for tracking frame rate    
+    private long timePrevFrame; //for tracking frame rate    
     private long timeDelta;	//for tracking frame rate    
-    private final int frameRateFactor = 80; //smaller is faster    
-    private int numberOfMoves=0;    
+    private int frameRateFactor; //smaller is faster    
+    private int numberOfMoves;    
     private int twoStarMoves;    
     private int threeStarMoves;   
     
     
     //Tile bitmap images
-    private Bitmap stationaryTile = BitmapFactory.decodeResource(getResources(), R.drawable.blackhole);    
-    private Bitmap bombTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_bomb);    
-    private Bitmap redTile = BitmapFactory.decodeResource(getResources(), R.drawable.redtile);    
-    private Bitmap greenTile = BitmapFactory.decodeResource(getResources(), R.drawable.greentile);    
-    private Bitmap blueTile = BitmapFactory.decodeResource(getResources(), R.drawable.bluetile);    
-    private Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.foxfurnebulabw);
-    private Bitmap startBall = BitmapFactory.decodeResource(getResources(), R.drawable.startball);   
-    private Bitmap finishBall = BitmapFactory.decodeResource(getResources(), R.drawable.finishball);   
-    private Bitmap patternBackground = BitmapFactory.decodeResource(getResources(), R.drawable.patternbackbround);
-    private Bitmap borderImage = BitmapFactory.decodeResource(getResources(), R.drawable.border);
-    private Paint touchedPaint = new Paint();    
+    private static final Bitmap stationaryTile = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.blackhole);    
+    private static final Bitmap bombTile = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.tile_bomb);    
+    private static final Bitmap redTile = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.redtile);    
+    private static final Bitmap greenTile = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.greentile);    
+    private static final Bitmap blueTile = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.bluetile);    
+    private static final Bitmap background = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.foxfurnebulabw);
+    private static final Bitmap startBall = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.startball);   
+    private static final Bitmap finishBall = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.finishball);   
+    private static final Bitmap patternBackground = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.patternbackbround);
+    private static final Bitmap borderImage = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.border);
+    private Paint touchedPaint;    
     private Rect screenRect;
     
     
     //Bomb Animation variables and bitmaps
-    private boolean bombAnimation = false;    
+    private boolean bombAnimation;    
     private float bombX;    
     private float bombY;    
-    private Bitmap blastFrame1 = BitmapFactory.decodeResource(getResources(), R.drawable.newblast1);    
-    private Bitmap blastFrame2 = BitmapFactory.decodeResource(getResources(), R.drawable.newblast2);    
-    private Bitmap blastFrame3 = BitmapFactory.decodeResource(getResources(), R.drawable.newblast3);    
-    private ArrayList<Bitmap> bombBlastFrames = new ArrayList<Bitmap>();    
+    private static final Bitmap blastFrame1 = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.newblast1);    
+    private static final Bitmap blastFrame2 = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.newblast2);    
+    private static final Bitmap blastFrame3 = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.newblast3);    
+    private ArrayList<Bitmap> bombBlastFrames;    
     private CanvasAnimator bombBlast;
     
     
     //Rocket Animation variables and bitmaps
-    private boolean rocketAnimation = false;   
-    private Bitmap upRocketTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_rocket_new);    
-    private Bitmap downRocketTile = RotateBitmap(upRocketTile, 180);    
-    private Bitmap leftRocketTile = RotateBitmap(upRocketTile, 270);    
-    private Bitmap rightRocketTile = RotateBitmap(upRocketTile, 90);    
-    private ArrayList<GameTile> rocketTileAnimationPieces = null;    
+    private boolean rocketAnimation;   
+    private static final Bitmap upRocketTile = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.tile_rocket_new);    
+    private static final Bitmap downRocketTile = RotateBitmap(upRocketTile, 180);    
+    private static final Bitmap leftRocketTile = RotateBitmap(upRocketTile, 270);    
+    private static final Bitmap rightRocketTile = RotateBitmap(upRocketTile, 90);    
+    private ArrayList<GameTile> rocketTileAnimationPieces;    
     private float ROCKET_MOVEMENT_INCREMENT;        
     private ImageView bgImage;
     
     
     //Reset Button
-    private Bitmap resetButton = BitmapFactory.decodeResource(getResources(), R.drawable.resetbutton);
+    private static final Bitmap resetButton = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.resetbutton);
     
     //Tracking Line Variables
-	private Paint startPaint = new Paint();	
-	private Paint endPaint = new Paint();	
-	private Paint linePaint = new Paint();
+	private Paint startPaint;	
+	private Paint endPaint;	
+	private Paint linePaint;
     
 	
     //Sound Variables
-    private SoundPool soundPool;    
-    private boolean hasSound = true;    
-    private Map<Integer,Integer> soundMap;    
+    private static SoundPool soundPool;    
+    private boolean hasSound;    
+    private Map<Integer,Integer> soundMap; 
+    
     private static final int COUNT_DOWN_ID = 0;    
     private static final int NEW_BLOCKS_ID = 1;   
     private static final int PATTERN_ERROR_ID = 2;   
@@ -162,9 +167,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		
 		getHolder().addCallback(this);
 		
-		backgroundPaint = new Paint();		
-		squarePaint = new Paint();		
-		playAreaPaint = new Paint();		
+		
 		
 		turnEvent = TurnEvent.INACTIVE;		
 		previousTurnEvent = TurnEvent.INACTIVE;
@@ -183,12 +186,21 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		soundMap.put(ROCKET_SOUND_ID,soundPool.load(context,R.raw.rocket_blast,1));	
 
 		//Set up bomb blast animation
+		bombBlastFrames = new ArrayList<Bitmap>();
 		bombBlastFrames.add(blastFrame1);
 		bombBlastFrames.add(blastFrame2);
 		bombBlastFrames.add(blastFrame3);
 		bombBlast = new CanvasAnimator(bombBlastFrames,BOMB_BLAST_TIME);
 		
 		//Initialize Paints
+		backgroundPaint = new Paint();		
+		squarePaint = new Paint();		
+		playAreaPaint = new Paint();
+		touchedPaint = new Paint();
+		startPaint = new Paint();	
+		endPaint = new Paint();	
+		linePaint = new Paint();
+		
 		touchedPaint.setAlpha(190);
 		squarePaint.setColor(Color.BLUE);
 		backgroundPaint.setColor(Color.BLUE);
@@ -200,6 +212,25 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 		endPaint.setColor(Color.RED);
 		linePaint.setColor(Color.WHITE);
 		linePaint.setAlpha(200);
+
+		//initialize variables
+		gameOver = true;
+		pitch_angle = 0;	
+		roll_angle = 0;
+		theGameBoard = null;
+		timePrevFrame = 0;
+		numberOfMoves=0; 
+		
+		bombAnimation = false; 
+		rocketAnimation = false;
+		rocketTileAnimationPieces = null;
+
+		timePrevFrame = 0;
+		hasSound = true; 
+		frameRateFactor = 80; 
+		
+		Random rng = new Random();
+		patternNumber = rng.nextInt(6);
 		
 	} //End constructor
 	
@@ -412,23 +443,31 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 					switch (rocketTileAnimationPieces.get(0).getOrientation()){ 
 						case DOWN:
 						case RIGHT:
-							if (theGameBoard.isRocketDone(theGameBoard.turnXToWidthIndex(rocketTileAnimationPieces.get(0).getLocationLeft()),theGameBoard.turnYToHeightIndex(rocketTileAnimationPieces.get(0).getLocationTop()))){
+							if (theGameBoard.isRocketDoneIncreasing(theGameBoard.turnXToWidthIndex(rocketTileAnimationPieces.get(0).getLocationLeft()),theGameBoard.turnYToHeightIndex(rocketTileAnimationPieces.get(0).getLocationTop()))){
 								rocketTileAnimationPieces = null;
 								rocketAnimation = false;
 							}
 							break;
 						case UP:
+						case LEFT:
+							if (theGameBoard.isRocketDoneDecreasing(theGameBoard.turnXToWidthIndex(rocketTileAnimationPieces.get(0).getLocationLeft()),theGameBoard.turnYToHeightIndex(rocketTileAnimationPieces.get(0).getLocationTop()))){
+								rocketTileAnimationPieces = null;
+								rocketAnimation = false;
+							}
+							break;	
+							/*
 							if (theGameBoard.isRocketDone(theGameBoard.turnXToWidthIndex(rocketTileAnimationPieces.get(0).getLocationLeft()),theGameBoard.turnYToHeightIndex((float) (rocketTileAnimationPieces.get(0).getLocationTop()+(0.9)*theGameBoard.getTileSize())))){
 								rocketTileAnimationPieces = null;
 								rocketAnimation = false;
 							}							
 							break;
-						case LEFT:
+						
 							if (theGameBoard.isRocketDone(theGameBoard.turnXToWidthIndex((float) (rocketTileAnimationPieces.get(0).getLocationLeft()+(0.9)*theGameBoard.getTileSize())),theGameBoard.turnYToHeightIndex(rocketTileAnimationPieces.get(0).getLocationTop()))){
 								rocketTileAnimationPieces = null;
 								rocketAnimation = false;
 							}							
 							break;
+							*/
 					}
 					
 					//Check if animation is still necessary
@@ -527,7 +566,9 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	}
 	
 	
-	public void releaseResources(){		
+	public void releaseResources(){	
+		soundPool.release();
+		soundPool = null;
 	}
 	
 
@@ -541,7 +582,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	//This is called when the surface is first created, so it is where we initiate the drawing thread
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		mSurfaceHolder=holder;
+		//mSurfaceHolder=holder;
 	}
 
 	
@@ -698,23 +739,23 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	  } 
 	
 	 //For drawing game tiles in play
-	 private void drawTile(GameTile tile,Canvas canvas){
+	 private void drawTile2(GameTile tile,Canvas canvas){
 		 
 		 Rect destSize = new Rect((int)tile.getLocationLeft(),(int)tile.getLocationTop(),(int)tile.getLocationLeft()+(int)theGameBoard.getTileSize()+1,(int)tile.getLocationTop()+(int)theGameBoard.getTileSize()+1);
 			if (tile.getTileType() == TileType.GAME_TILE){
 				switch (tile.getPaintColor()){
-					case Color.BLUE:
-						if (!tile.isTouched()){
-							canvas.drawBitmap(blueTile,null,destSize, null);
-						}else{
-							canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
-						}
-						break;
 					case Color.RED:
 						if (!tile.isTouched()){
 							canvas.drawBitmap(redTile,null,destSize, null);
 						}else{
 							canvas.drawBitmap(redTile,null,destSize, touchedPaint);
+						}
+						break;
+					case Color.BLUE:
+						if (!tile.isTouched()){
+							canvas.drawBitmap(blueTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
 						}
 						break;
 					case Color.GREEN:
@@ -748,6 +789,99 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 			}
 	 }
 	 
+	 //For drawing game tiles in play
+	 private void drawTile(GameTile tile,Canvas canvas){
+		 
+		 Rect destSize = new Rect((int)tile.getLocationLeft(),(int)tile.getLocationTop(),(int)tile.getLocationLeft()+(int)theGameBoard.getTileSize()+1,(int)tile.getLocationTop()+(int)theGameBoard.getTileSize()+1);
+			if (tile.getTileType() == TileType.GAME_TILE){
+				switch (tile.getPaintColor()){
+					case Color.RED:
+						if (patternNumber==0||patternNumber==1){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(redTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(redTile,null,destSize, touchedPaint);
+							}
+						}else if (patternNumber==2||patternNumber==3){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(greenTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(greenTile,null,destSize, touchedPaint);
+							}
+						}else if (patternNumber==4||patternNumber==5){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(blueTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
+							}
+						}
+						break;
+					case Color.BLUE:
+						if (patternNumber==3||patternNumber==5){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(redTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(redTile,null,destSize, touchedPaint);
+							}
+						}else if (patternNumber==1||patternNumber==4){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(greenTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(greenTile,null,destSize, touchedPaint);
+							}
+						}else if (patternNumber==0||patternNumber==2){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(blueTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
+							}
+						}
+						break;
+					case Color.GREEN:
+						if (patternNumber==2||patternNumber==4){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(redTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(redTile,null,destSize, touchedPaint);
+							}
+						}else if (patternNumber==0||patternNumber==5){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(greenTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(greenTile,null,destSize, touchedPaint);
+							}
+						}else if (patternNumber==1||patternNumber==3){
+							if (!tile.isTouched()){
+								canvas.drawBitmap(blueTile,null,destSize, null);
+							}else{
+								canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
+							}
+						}
+						break;				
+				}
+			} else if (tile.getTileType() == TileType.STATIONARY_TILE){	
+				canvas.drawBitmap(stationaryTile,null,destSize, null);
+			} else if (tile.getTileType() == TileType.BOMB_TILE){
+				canvas.drawBitmap(bombTile,null,destSize, null);
+			} else if (tile.getTileType() == TileType.ROCKET_TILE){
+				switch (tile.getOrientation()){
+					case UP:
+						canvas.drawBitmap(upRocketTile,null,destSize, null);
+						break;
+					case DOWN:
+						canvas.drawBitmap(downRocketTile,null,destSize, null);
+						break;
+					case LEFT:
+						canvas.drawBitmap(leftRocketTile,null,destSize, null);
+						break;
+					case RIGHT:
+						canvas.drawBitmap(rightRocketTile,null,destSize, null);
+						break;
+					
+				}
+			}
+	 }
+	 
 	 //For drawing the large pattern tiles at the bottom of the screen
 	 private void drawPatternTile(GameTile tile,Canvas canvas){
 			if (tile.getTileType() == TileType.GAME_TILE){
@@ -755,27 +889,69 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 				Rect destSize = new Rect((int)tile.getLocationLeft(),(int)tile.getLocationTop(),(int)tile.getLocationLeft()+(int)tile.getTileSize(),(int)tile.getLocationTop()+(int)tile.getTileSize());
 				
 				switch (tile.getPaintColor()){
-					case Color.BLUE:
-						if (!tile.isTouched()){
-							canvas.drawBitmap(blueTile,null,destSize, null);
-						}else{
-							canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
-						}
-						break;
-					case Color.RED:
+				case Color.RED:
+					if (patternNumber==0||patternNumber==1){
 						if (!tile.isTouched()){
 							canvas.drawBitmap(redTile,null,destSize, null);
 						}else{
 							canvas.drawBitmap(redTile,null,destSize, touchedPaint);
 						}
-						break;
-					case Color.GREEN:
+					}else if (patternNumber==2||patternNumber==3){
 						if (!tile.isTouched()){
 							canvas.drawBitmap(greenTile,null,destSize, null);
 						}else{
 							canvas.drawBitmap(greenTile,null,destSize, touchedPaint);
 						}
-						break;				
+					}else if (patternNumber==4||patternNumber==5){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(blueTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
+						}
+					}
+					break;
+				case Color.BLUE:
+					if (patternNumber==3||patternNumber==5){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(redTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(redTile,null,destSize, touchedPaint);
+						}
+					}else if (patternNumber==1||patternNumber==4){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(greenTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(greenTile,null,destSize, touchedPaint);
+						}
+					}else if (patternNumber==0||patternNumber==2){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(blueTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
+						}
+					}
+					break;
+				case Color.GREEN:
+					if (patternNumber==2||patternNumber==4){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(redTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(redTile,null,destSize, touchedPaint);
+						}
+					}else if (patternNumber==0||patternNumber==5){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(greenTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(greenTile,null,destSize, touchedPaint);
+						}
+					}else if (patternNumber==1||patternNumber==3){
+						if (!tile.isTouched()){
+							canvas.drawBitmap(blueTile,null,destSize, null);
+						}else{
+							canvas.drawBitmap(blueTile,null,destSize, touchedPaint);
+						}
+					}
+					break;			
 				}
 			}
 	}
@@ -823,7 +999,7 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback{
 	
 	 
 	//Used to Rotate the Rocket images 
-	private Bitmap RotateBitmap(Bitmap source, float angle)
+	private static Bitmap RotateBitmap(Bitmap source, float angle)
 		{
 		      Matrix matrix = new Matrix();
 		      matrix.postRotate(angle);
